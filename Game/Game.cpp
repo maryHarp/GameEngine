@@ -47,6 +47,7 @@ int main()
     // Define a rectangle
     SDL_FRect greenSquare{ 270, 190, 200, 200 };
 
+    //handle events
     while (!quit) {
         while (SDL_PollEvent(&e)) {
             if (e.type == SDL_EVENT_QUIT) {
