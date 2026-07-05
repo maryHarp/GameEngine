@@ -38,14 +38,34 @@ int main()
         renderer.setColor(0, 0, 0);
         renderer.Clear();
 
-        for (int i = 0; i < 1000; i++) {
+        /*for (int i = 0; i < 1000; i++) {
             renderer.setColor(rand() % 256, rand() % 256, rand() % 256, rand() % 256);
             renderer.DrawPoint(rand() % 1280, rand() % 1280);
              
         }
 
         renderer.setColor(rand() % 256, rand() % 256, rand() % 256);
-        renderer.DrawFillRect(40, 40, 50, 50);
+        renderer.DrawFillRect(40, 40, 50, 50);*/
+
+        //random points
+        // 
+        for (int i = 0; i < 3; i++) {
+            renderer.setColor(rand() % 256, rand() % 256, rand() % 256);
+            renderer.DrawFillRect(rand() % 1024, rand() % 1024, rand() % 1024, rand() % 1024);
+        }
+
+        for (int i = 0; i < 20; i++)
+        {
+            renderer.setColor(rand() % 256, rand() % 256, rand() % 256);
+            renderer.DrawPoint(rand() % 1024, rand() % 1024);
+        }
+
+        for (int i = 0; i < 10; i++) {
+            renderer.setColor(rand() % 256, rand() % 256, rand() % 256);
+            renderer.DrawLine(rand() % 1024, rand() % 1024, rand() % 1024, rand() % 1024);
+        }
+
+        
         
 
         //SDL_SetRenderDrawColor(m_renderer, rand() % 256, rand() % 256, rand() % 256, 255); // Set render draw color to green
