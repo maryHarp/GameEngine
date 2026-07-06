@@ -13,29 +13,49 @@
 //#define MAX(a, b) ((a > b) ? a : b)
 
 #include "Engine.h"
-#include "SDL3/SDL.h"
-
 
 #include <iostream>
+#include <vector>
+
+using namespace nu;
 
 int main()
+
 {
+    //INITIALIZATION
     nu::Renderer renderer;
 
-    renderer.Initialize("Game Engine", 1920, 1024);
+    renderer.Initialize("Game Engine", 1280, 1024);
+
+
+
+    //std::cout << sizeof(Vector2) << std::endl;
+
+    Vector2 vel{ 0.5f, 0.0f };
+
+    std::vector<Vector2> v;
+
+    for (int i = 0; i < 300; i++) {
+
+        v.push_back(Vector2{ nu::RandomFloat(1080), nu::RandomFloat(1024) });
+    }
     
-
-    SDL_Event e;
+    //main loop
     bool quit = false;
-
+    
     while (!quit) {
-        while (SDL_PollEvent(&e)) {
-            if (e.type == SDL_EVENT_QUIT) {
+        //update
+        SDL_Event event;
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_EVENT_QUIT) {
                 quit = true;
             }
+
+
         }
 
-        renderer.setColor(0, 0, 0);
+        //render
+        renderer.setColor(0.0f, 0.0f, 0.0f);
         renderer.Clear();
 
         /*for (int i = 0; i < 1000; i++) {
@@ -49,36 +69,31 @@ int main()
 
         //random points
         // 
-        for (int i = 0; i < 3; i++) {
-            renderer.setColor(rand() % 256, rand() % 256, rand() % 256);
-            renderer.DrawFillRect(rand() % 1024, rand() % 1024, rand() % 1024, rand() % 1024);
-        }
+        /*for (int i = 0; i < 3; i++) {
+            renderer.setColor(nu::RandomFloat(256), nu::RandomFloat(256), nu::RandomFloat(256));
+            renderer.DrawFillRect(nu::RandomFloat(1280), nu::RandomFloat(1024), nu::RandomFloat(1280), nu::RandomFloat(1024));
+        }*/
 
-        for (int i = 0; i < 20; i++)
+        for (size_t i = 0; i < v.size(); i++)
         {
-            renderer.setColor(rand() % 256, rand() % 256, rand() % 256);
-            renderer.DrawPoint(rand() % 1024, rand() % 1024);
+            renderer.setColor(nu::RandomFloat(256), nu::RandomFloat(256), nu::RandomFloat(256));
+            v[i] = v[i] + vel;
+
+            renderer.DrawPoint(v[i].x, v[i].y);
         }
 
-        for (int i = 0; i < 10; i++) {
-            renderer.setColor(rand() % 256, rand() % 256, rand() % 256);
-            renderer.DrawLine(rand() % 1024, rand() % 1024, rand() % 1024, rand() % 1024);
-        }
+        /*for (int i = 0; i < 10; i++) {
+            renderer.setColor(nu::RandomFloat(256), nu::RandomFloat(256), nu::RandomFloat(256));
+            renderer.DrawLine(nu::RandomFloat(1280), nu::RandomFloat(1024), nu::RandomFloat(1280), nu::RandomFloat(1024));
+        }*/
 
         
-        
-
-        //SDL_SetRenderDrawColor(m_renderer, rand() % 256, rand() % 256, rand() % 256, 255); // Set render draw color to green
-        //SDL_RenderFillRect(m_renderer, &greenSquare); // Render the rectangle
-
-        //SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-        //SDL_RenderDebugText(renderer, 30, 30, "Hello World!");
-
-        //SDL_RenderPresent(renderer); // Render the screen
+      
         renderer.Present();
 
     }
 
+    //shutdown 
     renderer.Shutdown();
 
     return 0;
