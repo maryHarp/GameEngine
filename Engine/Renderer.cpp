@@ -2,6 +2,7 @@
 #include "Renderer.h"
 
 #include <iostream>
+#include "Input.h"
 
 namespace nu 
 {
@@ -23,6 +24,9 @@ namespace nu
             SDL_Quit();
             return false;
         }
+
+        SDL_SetRenderVSync(m_renderer, 1);
+
 		return true;
 	}
     
@@ -45,6 +49,7 @@ namespace nu
     {
         SDL_RenderPresent(m_renderer);
     }
+    
     void Renderer::Shutdown()
     {
         SDL_DestroyRenderer(m_renderer);
