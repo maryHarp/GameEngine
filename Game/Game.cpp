@@ -19,6 +19,47 @@
 
 using namespace nu;
 
+struct Transform {
+    Vector2 position;
+    float rotation;
+    float scale;
+};
+
+class Actor {
+public:
+    Actor() = default;
+    Actor(const Transform& transform) : m_transform { transform } {}
+
+    void Update(float dt) {
+        m_transform.position += (m_velocity * dt);
+        m_velocity *= 0.987f;
+
+        m_transform.position.x = Wrap(0.0f, 1280.0f, m_transform.position.x);
+        m_transform.position.y = Wrap(0.0f, 1024.0f, m_transform.position.y);
+    }
+
+    void Draw(const Renderer& renderer) const {
+        renderer.setColor(1.0f, 1.0f, 1.0f);
+        renderer.DrawFillRect(m_transform.position.x - (m_transform.scale * 0.5f), m_transform.position.y - (m_transform.scale * 0.5f), m_transform.scale, m_transform.scale);
+    }
+
+    const Transform& GetTransform() const { return m_transform; }
+    void SetPosition(const Vector2& position) { m_transform.position = position; }
+    void SetRotation(float rotation) { m_transform.rotation = rotation; }
+    void SetScale(float scale) { m_transform.rotation = scale; }
+
+    const Vector2 GetVelocity() const{ return m_velocity; }
+    void SetVelocity(const Vector2& velocity) { m_velocity = velocity; }
+
+
+protected:
+    Transform m_transform;
+    Vector2 m_velocity{ 0,0 };
+
+};
+
+
+
 int main()
 
 {
@@ -30,8 +71,18 @@ int main()
     nu::Input input;
     input.Initailize();
 
+    nu::Time time;
+
+    Actor player{ Transform{ Vector2{640.0f, 512.0f}, 0.0f, 50.0f} };
+
     Vector2 position{ 640.0f, 512.0f };
+    Vector2 velocity{ 0.0f, 0.0f };
+    float speed = 200.0f;
+
     std::vector<Vector2> points;
+
+    uint64_t ticks = SDL_GetTicks();
+    uint64_t prevTicks = ticks;
 
     //main loop
     bool quit = false;
@@ -50,10 +101,7 @@ int main()
         }
 
         input.Update();
-
-        uint64_t ticks = SDL_GetTicks(); //1000 ticks per second
-        float seconds = ticks / 1000.0f;
-        std::cout << seconds << std::endl;
+        time.Tick();
 
         /*if (input.GetKeyPressed(SDL_SCANCODE_Q)) std::cout << "pressed\n";
         if (input.GetKeyDown(SDL_SCANCODE_Q)) std::cout << "down\n";
@@ -63,32 +111,61 @@ int main()
         if (input.GetButtonDown(nu::Input::MouseButton::Left)) std::cout << "button down\n";
         if (input.GetButtonReleased(nu::Input::MouseButton::Left)) std::cout << "button released\n";*/
 
-        if (input.GetButtonDown(Input::MouseButton::Left)) {
+        /*if (input.GetButtonPressed(Input::MouseButton::Left)) {
             points.push_back(input.GetMousePosition());
+        }*/
+        if (input.GetButtonDown(Input::MouseButton::Left)) {
+            if (points.empty()) {
+                points.push_back(input.GetMousePosition());
+
+            }
+
+            Vector2 v = points.back() - input.GetMousePosition();
+
+            if (v.Length() > 10.0f) {
+                points.push_back(input.GetMousePosition());
+            }
+        }
+
+        //undo points
+        if (input.GetButtonPressed(Input::MouseButton::Right)) {
+            if(points.empty()) points.pop_back();
         }
 
 
-        Vector2 velocity{ 0.0f, 0.0f };
-        if (input.GetKeyDown(SDL_SCANCODE_A)) velocity.x = -1;
-        if (input.GetKeyDown(SDL_SCANCODE_D)) velocity.x = +1;
-        if (input.GetKeyDown(SDL_SCANCODE_W)) velocity.y = -1;
-        if (input.GetKeyDown(SDL_SCANCODE_S)) velocity.y = +1;
+        Vector2 force{ 0.0f, 0.0f };
+        if (input.GetKeyDown(SDL_SCANCODE_A)) force.x = -speed;
+        if (input.GetKeyDown(SDL_SCANCODE_D)) force.x = +speed;
+        if (input.GetKeyDown(SDL_SCANCODE_W)) force.y = -speed;
+        if (input.GetKeyDown(SDL_SCANCODE_S)) force.y = +speed;
 
-        position += velocity;
+        player.SetVelocity(player.GetVelocity() + (force * time.GetDeltaTime()));
+        player.Update(time.GetDeltaTime());
+
+        /*velocity += (force * time.GetDeltaTime());
+        position += (velocity * time.GetDeltaTime());
+
+        position.x = Wrap(0.0f, 1280.0f, position.x);
+        position.y = Wrap(0.0f, 1024.0f, position.y);*/
+
 
         //render
         renderer.setColor(0.0f, 0.0f, 0.0f);
         renderer.Clear();
+
+        //unsigned int (0) - 1 = MAX_NUMBER
                 
-        for (size_t i = 0; i < points.size(); i++)
+        for (int i = 0; i < (int)points.size() - 1; i++)
         {
             renderer.setColor(nu::RandomFloat(256), nu::RandomFloat(256), nu::RandomFloat(256));
-            renderer.DrawFillRect(points[i].x, points[i].y, 10, 10);
+            renderer.DrawLine(points[i].x, points[i].y, points[i+1].x, points[i+1].y);
         }
 
-        //character
-        renderer.setColor(1.0f, 1.0f, 1.0f);
-        renderer.DrawFillRect(position.x - 20, position.y - 20, 40, 40);
+        ////character
+        player.Draw(renderer);
+        
+        //renderer.setColor(1.0f, 1.0f, 1.0f);
+        //renderer.DrawFillRect(position.x - 20, position.y - 20, 40, 40);
         
         renderer.Present();
     }
