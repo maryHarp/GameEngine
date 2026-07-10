@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cstdlib>
+#include <stdlib.h>
 
 namespace nu {
 	inline int RandomInt() {

@@ -77,7 +77,7 @@ int main()
 
     Vector2 position{ 640.0f, 512.0f };
     Vector2 velocity{ 0.0f, 0.0f };
-    float speed = 200.0f;
+    float speed = 500.0f;
 
     std::vector<Vector2> points;
 
@@ -133,20 +133,14 @@ int main()
         }
 
 
-        Vector2 force{ 0.0f, 0.0f };
+        /*Vector2 force{ 0.0f, 0.0f };
         if (input.GetKeyDown(SDL_SCANCODE_A)) force.x = -speed;
         if (input.GetKeyDown(SDL_SCANCODE_D)) force.x = +speed;
         if (input.GetKeyDown(SDL_SCANCODE_W)) force.y = -speed;
-        if (input.GetKeyDown(SDL_SCANCODE_S)) force.y = +speed;
+        if (input.GetKeyDown(SDL_SCANCODE_S)) force.y = +speed;*/
 
-        player.SetVelocity(player.GetVelocity() + (force * time.GetDeltaTime()));
-        player.Update(time.GetDeltaTime());
-
-        /*velocity += (force * time.GetDeltaTime());
-        position += (velocity * time.GetDeltaTime());
-
-        position.x = Wrap(0.0f, 1280.0f, position.x);
-        position.y = Wrap(0.0f, 1024.0f, position.y);*/
+        /*player.SetVelocity(player.GetVelocity() + (force * time.GetDeltaTime()));
+        player.Update(time.GetDeltaTime());*/
 
 
         //render
@@ -157,12 +151,14 @@ int main()
                 
         for (int i = 0; i < (int)points.size() - 1; i++)
         {
-            renderer.setColor(nu::RandomFloat(256), nu::RandomFloat(256), nu::RandomFloat(256));
+            renderer.setColor(nu::RandomFloat(1.0f), nu::RandomFloat(1.0f), nu::RandomFloat(1.0f));
             renderer.DrawLine(points[i].x, points[i].y, points[i+1].x, points[i+1].y);
         }
 
+        
+
         ////character
-        player.Draw(renderer);
+        //player.Draw(renderer);
         
         //renderer.setColor(1.0f, 1.0f, 1.0f);
         //renderer.DrawFillRect(position.x - 20, position.y - 20, 40, 40);
