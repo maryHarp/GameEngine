@@ -2,6 +2,7 @@
 #include "Renderer.h"
 #include "Transform.h"
 #include "Model.h"
+#include "MathUtils.h"
 
 
 
@@ -98,6 +99,12 @@ namespace nu
 
                 v1 *= transform.scale;
                 v2 *= transform.scale;
+
+                v1 = v1.Rotate(transform.rotation * DegToRad);
+                v2 = v2.Rotate(transform.rotation * DegToRad);
+
+                v1 += transform.position;
+                v2 += transform.position;
 
                 DrawLine(v1.x, v1.y, v2.x, v2.y);
             }

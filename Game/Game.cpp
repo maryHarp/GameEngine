@@ -13,6 +13,7 @@
 //#define MAX(a, b) ((a > b) ? a : b)
 
 #include "Engine.h"
+#include "Player.h"
 
 #include <iostream>
 #include <vector>
@@ -27,25 +28,16 @@ int main()
 {
 
     //INITIAL
-    nu::Renderer renderer;
+    Engine engine;
 
-    renderer.Initialize("Game Engine", 1280, 1024);
+    engine.Initialize();
 
-    nu::Input input;
-    input.Initailize();
-
-    nu::Time time;
-
-    //std::vector<Vector2> points{{-3, 3}, {3, 3} };
     
-    
-    Mesh mesh{ { Vector2{-3, 3}, Vector2{3, 3}, Vector2{ 0, 0} }, Color{0.0f, 0.0f, 1.0f} };
-
-    Actor player{ Transform {Vector2 {640.0f, 512.0f}, 0.0f, 50.0f}, std::vector<Mesh>{mesh} };
+    Mesh mesh{ { Vector2{2, 0}, Vector2{-2, 2}, Vector2{ -1, 0}, Vector2(-2, -2), Vector2(2, 0)}, Color{0.0f, 0.0f, 1.0f}};
+    Player player{ 2000.0f, Transform {Vector2 {640.0f, 512.0f}, 0.0f, 15.0f}, std::vector<Mesh>{mesh} };
 
     Vector2 position{ 640.0f, 512.0f };
     Vector2 velocity{ 0.0f, 0.0f };
-    float speed = 800.0f;
 
     std::vector<Vector2> points;
 
@@ -68,93 +60,57 @@ int main()
 
         }
 
-        input.Update();
-        time.Tick();
+        engine.Update();
 
-        /*if (input.GetKeyPressed(SDL_SCANCODE_Q)) std::cout << "pressed\n";
-        if (input.GetKeyDown(SDL_SCANCODE_Q)) std::cout << "down\n";
-        if (input.GetKeyReleased(SDL_SCANCODE_Q)) std::cout << "released\n";
-
-        if (input.GetButtonPressed(nu::Input::MouseButton::Left)) std::cout << "button pressed\n";
-        if (input.GetButtonDown(nu::Input::MouseButton::Left)) std::cout << "button down\n";
-        if (input.GetButtonReleased(nu::Input::MouseButton::Left)) std::cout << "button released\n";*/
-
+        //player.SetRotation(player.GetTransform().rotation +(90.0f * engine.GetTime().GetDeltaTime()));
+        player.SetRotation(90.0f);
+        player.Update(engine.GetTime().GetDeltaTime());
         
-        if (input.GetButtonDown(Input::MouseButton::Left)) {
+        if (engine.GetInput().GetButtonDown(Input::MouseButton::Left)) {
             if (points.empty()) {
-                points.push_back(input.GetMousePosition());
+                points.push_back(engine.GetInput().GetMousePosition());
 
             }
 
-            Vector2 v = points.back() - input.GetMousePosition();
+            Vector2 v = points.back() - engine.GetInput().GetMousePosition();
 
             if (v.Length() > 10.0f) {
-                points.push_back(input.GetMousePosition());
+                points.push_back(engine.GetInput().GetMousePosition());
             }
         }
 
         //undo points
-        if (input.GetButtonPressed(Input::MouseButton::Right)) {
+        if (engine.GetInput().GetButtonPressed(Input::MouseButton::Right)) {
             if(points.empty()) points.pop_back();
         }
 
 
-        Vector2 force{ 0.0f, 0.0f };
-        if (input.GetKeyDown(SDL_SCANCODE_A)) force.x = -speed;
-        if (input.GetKeyDown(SDL_SCANCODE_D)) force.x = +speed;
-        if (input.GetKeyDown(SDL_SCANCODE_W)) force.y = -speed;
-        if (input.GetKeyDown(SDL_SCANCODE_S)) force.y = +speed;
-
-        player.SetVelocity(player.GetVelocity() + (force * time.GetDeltaTime()));
-        player.Update(time.GetDeltaTime());
-
 
         //render
-        renderer.setColor(0.0f, 0.0f, 0.0f);
-        renderer.Clear();
+        engine.GetRenderer().setColor(0.0f, 0.0f, 0.0f);
+        engine.GetRenderer().Clear();
 
         //unsigned int (0) - 1 = MAX_NUMBER
                 
         for (int i = 0; i < (int)points.size() - 1; i++)
         {
-            renderer.setColor(nu::RandomFloat(1.0f), nu::RandomFloat(1.0f), nu::RandomFloat(1.0f));
-            renderer.DrawLine(points[i].x, points[i].y, points[i+1].x, points[i+1].y);
+            engine.GetRenderer().setColor(nu::RandomFloat(1.0f), nu::RandomFloat(1.0f), nu::RandomFloat(1.0f));
+            engine.GetRenderer().DrawLine(points[i].x, points[i].y, points[i+1].x, points[i+1].y);
         }
 
         
 
         ////character
-        player.Draw(renderer);
+        player.Draw(engine.GetRenderer());
         
         /*renderer.setColor(1.0f, 1.0f, 1.0f);
         renderer.DrawFillRect(position.x - 20, position.y - 20, 40, 40);*/
         
-        renderer.Present();
+        engine.GetRenderer().Present();
     }
 
     //shutdown 
-    renderer.Shutdown();
 
     return 0;
 }
 
-/*for (int i = 0; i < 1000; i++) {
-            renderer.setColor(rand() % 256, rand() % 256, rand() % 256, rand() % 256);
-            renderer.DrawPoint(rand() % 1280, rand() % 1280);
-             
-        }
-
-        renderer.setColor(rand() % 256, rand() % 256, rand() % 256);
-        renderer.DrawFillRect(40, 40, 50, 50);*/
-
-        //random points
-        // 
-        /*for (int i = 0; i < 3; i++) {
-            renderer.setColor(nu::RandomFloat(256), nu::RandomFloat(256), nu::RandomFloat(256));
-            renderer.DrawFillRect(nu::RandomFloat(1280), nu::RandomFloat(1024), nu::RandomFloat(1280), nu::RandomFloat(1024));
-        }*/
-
-        /*for (int i = 0; i < 10; i++) {
-                   renderer.setColor(nu::RandomFloat(256), nu::RandomFloat(256), nu::RandomFloat(256));
-                   renderer.DrawLine(nu::RandomFloat(1280), nu::RandomFloat(1024), nu::RandomFloat(1280), nu::RandomFloat(1024));
-               }*/

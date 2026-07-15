@@ -2,9 +2,12 @@
 
 namespace nu {
 
-	const float Pie = 3.14159265359f;
-	const float Pie2 = 6.28318530718f;
-	const float HalfPie = 1.570796f;;
+	constexpr float Pi = 3.14159265359f;
+	constexpr float Pi2 = 6.28318530718f;
+	constexpr float HalfPi = 1.570796f;
+
+	constexpr float RadToDeg = 180.0f / Pi;
+	constexpr float DegToRad = Pi / 180.0f;
 
 	template<typename T>
 	T Min(T a, T b) {
