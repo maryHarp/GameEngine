@@ -15,6 +15,7 @@
 #include "Engine.h"
 #include "Player.h"
 #include "Enemy.h"
+#include <fmod.hpp>
 
 #include <iostream>
 #include <vector>
