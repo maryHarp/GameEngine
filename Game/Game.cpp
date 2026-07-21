@@ -32,10 +32,38 @@ int main()
     //INITIAL
 
     engine.Initialize();
+
+    //create audio system
+    FMOD::System* audio;
+    FMOD::System_Create(&audio);
+
+    void* extradriverdata = nullptr;
+    audio->init(32, FMOD_INIT_NORMAL, extradriverdata);
     
-    Mesh nose{ { Vector2{2, 0}, Vector2{1, 1}, Vector2{ -1, -1}, Vector2(2, 0)}, Color{1.0f, 0.0f, 1.0f}};
-    Mesh body{ { Vector2{1, 1}, Vector2{-1, -1}, Vector2{ -1, -1}, Vector2(2, 0)}, Color{1.0f, 0.0f, 1.0f}};
-    Model model{ std::vector<Mesh>{ nose  } };
+    std::vector<FMOD::Sound*> sounds;
+
+    FMOD::Sound* sound = nullptr;
+    audio->createSound("whistle.mp3", FMOD_DEFAULT, 0, &sound);
+    sounds.push_back(sound);
+
+    audio->createSound("snare.wav", FMOD_DEFAULT, 0, &sound);
+    sounds.push_back(sound);
+    audio->createSound("duck-toy.mp3", FMOD_DEFAULT, 0, &sound);
+    sounds.push_back(sound);
+    audio->createSound("oof.mp3", FMOD_DEFAULT, 0, &sound);
+    sounds.push_back(sound);
+    audio->createSound("hee-hee.mp3", FMOD_DEFAULT, 0, &sound);
+    sounds.push_back(sound);
+    
+    Mesh body{ { Vector2{2, 0}, Vector2{0, 1}, Vector2{ -2, 3}, 
+                 Vector2{ -1, 0}, Vector2{ -3, -3}, Vector2{ 0, -1}, Vector2{2, 0}}, Color{ 1.0f, 0.0f, 1.0f }};
+    Mesh wings{ { Vector2{1, 3}, Vector2{0, 1}, Vector2{ 0, -1}, Vector2{1, -3}, Vector2{1, 3}}, Color{1.0f, 0.5f, 1.0f} };
+
+
+
+
+    Model model{ std::vector<Mesh>{ body } };
+    model.AddMesh(wings);
 
     Scene scene;
 
@@ -62,6 +90,7 @@ int main()
         scene.AddActor(enemy);
     }
     
+    
 
 
 
@@ -75,10 +104,40 @@ int main()
     uint64_t ticks = SDL_GetTicks();
     uint64_t prevTicks = ticks;*/
 
+    audio->createSound("mario.mp3", FMOD_DEFAULT, 0, &sound);
+
+    audio->playSound(sound, 0, false, nullptr);
+
+
+
     //main loop
     bool quit = false;
     
     while (!quit) {
+        audio->update();
+
+        if (engine.GetInput().GetKeyPressed(SDL_SCANCODE_1))
+        {
+            audio->playSound(sounds[0], nullptr, false, nullptr);
+        }
+
+        if (engine.GetInput().GetKeyPressed(SDL_SCANCODE_2))
+        {
+            audio->playSound(sounds[1], nullptr, false, nullptr);
+        }
+        if (engine.GetInput().GetKeyPressed(SDL_SCANCODE_3))
+        {
+            audio->playSound(sounds[2], nullptr, false, nullptr);
+        }
+        if (engine.GetInput().GetKeyPressed(SDL_SCANCODE_4))
+        {
+            audio->playSound(sounds[3], nullptr, false, nullptr);
+        }
+        if (engine.GetInput().GetKeyPressed(SDL_SCANCODE_5))
+        {
+            audio->playSound(sounds[4], nullptr, false, nullptr);
+        }
+
         //update
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
@@ -103,26 +162,7 @@ int main()
         scene.Update(dt);
 
 
-        /*if (engine.GetInput().GetButtonDown(Input::MouseButton::Left)) {
-            if (points.empty()) {
-                points.push_back(engine.GetInput().GetMousePosition());
-
-            }
-            else {
-                Vector2 v = points.back() - engine.GetInput().GetMousePosition();
-
-                if (v.Length() > 10.0f) {
-                    points.push_back(engine.GetInput().GetMousePosition());
-                    }
-            }
-
-            
-        }*/
-
-        //undo points
-        /*if (engine.GetInput().GetButtonPressed(Input::MouseButton::Right)) {
-            if(points.empty()) points.pop_back();
-        }*/
+      
 
 
         //render
@@ -141,18 +181,3 @@ int main()
     return 0;
 }
 
-//unsigned int (0) - 1 = MAX_NUMBER
-                
-        /*for (int i = 0; i < (int)points.size() - 1; i++)
-        {
-            engine.GetRenderer().setColor(nu::RandomFloat(1.0f), nu::RandomFloat(1.0f), nu::RandomFloat(1.0f));
-            engine.GetRenderer().DrawLine(points[i].x, points[i].y, points[i+1].x, points[i+1].y);
-        }*/
-
-        
-
-        ////character
-        
-        
-        /*renderer.setColor(1.0f, 1.0f, 1.0f);
-        renderer.DrawFillRect(position.x - 20, position.y - 20, 40, 40);*/

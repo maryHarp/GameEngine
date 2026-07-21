@@ -14,6 +14,7 @@ public:
     Player(const PlayerDesc& playerDesc) :
         Actor{ playerDesc },
         m_speed{ playerDesc.speed }
+
     {}
 
     Player(float speed, const nu::Transform& transform) : 
@@ -32,8 +33,11 @@ public:
 
 
 
+
 private:
 	int m_ammo = 0;
     float m_speed = 800.0f;
+
+    
 
 };

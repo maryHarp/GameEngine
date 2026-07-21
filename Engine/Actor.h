@@ -51,7 +51,7 @@ namespace nu {
 
     protected:
         std::string m_name;
-        //std::string m_tag;
+        std::string m_tag;
 
         Transform m_transform;
         Vector2 m_velocity{ 0,0 };

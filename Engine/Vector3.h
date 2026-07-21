@@ -5,9 +5,7 @@
 
 namespace nu {
 	struct Vector3 {
-		float x, y, z;
-		float r, g, b;
-
+		
 		union {
 			struct { float x, y, z; };
 			struct { float r, g, b; };
