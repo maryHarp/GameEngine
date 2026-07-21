@@ -4,14 +4,16 @@
 #include <SDL3/SDL.h>
 
 namespace nu {
-	bool Input::Initailize() {
+	bool Input::Initialize() {
 
 		int numKeys;
 		const bool* keyState = SDL_GetKeyboardState(&numKeys);
 
 		m_keyStates.resize(numKeys);
+
 		
-		std::copy(keyState, keyState + numKeys, m_keyStates.begin());
+		std::copy(keyState, keyState + m_keyStates.size(), m_keyStates.begin());
+		m_prevKeyStates = m_keyStates;
 
 		return true;
 	}

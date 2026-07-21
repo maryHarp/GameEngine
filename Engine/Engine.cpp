@@ -15,7 +15,7 @@ namespace nu {
 	bool Engine::Initialize() {
 
 		m_renderer.Initialize("Game Engine", 1280, 1024);
-		m_input.Initailize();
+		m_input.Initialize();
 
 		return true;
 	}

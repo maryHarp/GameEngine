@@ -15,8 +15,10 @@ namespace nu {
     void Actor::Draw(const Renderer& renderer) const {
 
 
-        renderer.DrawModel(m_model, m_transform);
-        //renderer.setColor(m_model.GetColor().r, m_model.GetColor().g, m_model.GetColor().b);
+        renderer.DrawModel(m_model, m_transform);/*
+        renderer.setColor(m_model.GetMeshes().get
+            
+            GetColor().r, m_model.GetColor().g, m_model.GetColor().b);*/
 
 
 
