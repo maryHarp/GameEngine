@@ -10,7 +10,6 @@
 #include <iostream>
 
 namespace nu {
-	Engine engine;
 
 	bool Engine::Initialize() {
 

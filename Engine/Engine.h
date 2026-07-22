@@ -5,7 +5,7 @@
 #include "Vector3.h"
 #include "Transform.h"
 #include "MathUtils.h"
-#include "Scene.h"
+
 
 
 //systems
@@ -14,11 +14,14 @@
 #include "GameTime.h"
 
 #include "Actor.h"
+#include "Scene.h"
+
 
 namespace nu {
 	class Engine {
 	public:
-		Engine() = default;
+
+		static Engine& Get() { Engine engine; return engine; }
 
 		bool Initialize();
 		void Shutdown();
@@ -36,13 +39,15 @@ namespace nu {
 		}
 
 	private:
+		Engine() = default;
+
+	private:
 		Input m_input;
 		Renderer m_renderer;
 		Time m_time;
 
 	};
 
-	extern Engine engine;
 }
 
 

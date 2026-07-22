@@ -22,16 +22,13 @@
 
 using namespace nu;
 
-void dosomething(std::vector<Vector2>& v) {
-    v[0].x = 40.0;
-}
 
 int main()
 {
 
     //INITIAL
 
-    engine.Initialize();
+    Engine::Get().Initialize();
 
     //create audio system
     FMOD::System* audio;
@@ -81,8 +78,8 @@ int main()
         EnemyDesc enemyDesc;
         enemyDesc.name = "Enemy";
         enemyDesc.model = model;
-        enemyDesc.transform = Transform{ Vector2 {nu::RandomFloat((float)nu::engine.GetRenderer().GetWidth()),
-                                                               nu::RandomFloat((float)nu::engine.GetRenderer().GetHeight())} };
+        enemyDesc.transform = Transform{ Vector2 {nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetWidth()),
+                                                               nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetHeight())} };
         enemyDesc.speed = 2000.0f;
 
 
@@ -116,24 +113,24 @@ int main()
     while (!quit) {
         audio->update();
 
-        if (engine.GetInput().GetKeyPressed(SDL_SCANCODE_1))
+        if (Engine::Get().GetInput().GetKeyPressed(SDL_SCANCODE_1))
         {
             audio->playSound(sounds[0], nullptr, false, nullptr);
         }
 
-        if (engine.GetInput().GetKeyPressed(SDL_SCANCODE_2))
+        if (Engine::Get().GetInput().GetKeyPressed(SDL_SCANCODE_2))
         {
             audio->playSound(sounds[1], nullptr, false, nullptr);
         }
-        if (engine.GetInput().GetKeyPressed(SDL_SCANCODE_3))
+        if (Engine::Get().GetInput().GetKeyPressed(SDL_SCANCODE_3))
         {
             audio->playSound(sounds[2], nullptr, false, nullptr);
         }
-        if (engine.GetInput().GetKeyPressed(SDL_SCANCODE_4))
+        if (Engine::Get().GetInput().GetKeyPressed(SDL_SCANCODE_4))
         {
             audio->playSound(sounds[3], nullptr, false, nullptr);
         }
-        if (engine.GetInput().GetKeyPressed(SDL_SCANCODE_5))
+        if (Engine::Get().GetInput().GetKeyPressed(SDL_SCANCODE_5))
         {
             audio->playSound(sounds[4], nullptr, false, nullptr);
         }
@@ -150,14 +147,14 @@ int main()
 
         }
 
-        engine.Update();
+        Engine::Get().Update();
 
-        //player.SetRotation(player.GetTransform().rotation +(90.0f * engine.GetTime().GetDeltaTime()));
+        //player.SetRotation(player.GetTransform().rotation +(90.0f * Engine::Get().GetTime().GetDeltaTime()));
         /*player.SetRotation(90.0f);*/
-        player->Update(engine.GetTime().GetDeltaTime());
-        //enemy.Update(engine.GetTime().GetDeltaTime());
+        player->Update(Engine::Get().GetTime().GetDeltaTime());
+        //enemy.Update(Engine::Get().GetTime().GetDeltaTime());
 
-        float dt = engine.GetTime().GetDeltaTime();
+        float dt = Engine::Get().GetTime().GetDeltaTime();
 
         scene.Update(dt);
 
@@ -166,14 +163,14 @@ int main()
 
 
         //render
-        engine.GetRenderer().setColor(0.0f, 0.0f, 0.0f);
-        engine.GetRenderer().Clear();
+        Engine::Get().GetRenderer().setColor(0.0f, 0.0f, 0.0f);
+        Engine::Get().GetRenderer().Clear();
         
-        scene.Draw(engine.GetRenderer());
+        scene.Draw(Engine::Get().GetRenderer());
 
         
         
-        engine.GetRenderer().Present();
+        Engine::Get().GetRenderer().Present();
     }
 
     //shutdown 
