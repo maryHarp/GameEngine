@@ -15,6 +15,7 @@
 #include "Engine.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Assets.h"
 #include <fmod.hpp>
 
 #include <iostream>
@@ -52,21 +53,18 @@ int main()
     audio->createSound("hee-hee.mp3", FMOD_DEFAULT, 0, &sound);
     sounds.push_back(sound);
     
-    Mesh body{ { Vector2{2, 0}, Vector2{0, 1}, Vector2{ -2, 3}, 
+   /* Mesh body{ { Vector2{2, 0}, Vector2{0, 1}, Vector2{ -2, 3}, 
                  Vector2{ -1, 0}, Vector2{ -3, -3}, Vector2{ 0, -1}, Vector2{2, 0}}, Color{ 1.0f, 0.0f, 1.0f }};
     Mesh wings{ { Vector2{1, 3}, Vector2{0, 1}, Vector2{ 0, -1}, Vector2{1, -3}, Vector2{1, 3}}, Color{1.0f, 0.5f, 1.0f} };
 
-
-
-
     Model model{ std::vector<Mesh>{ body } };
-    model.AddMesh(wings);
+    model.AddMesh(wings);*/
 
     Scene scene;
 
     PlayerDesc playerDesc;
     playerDesc.name = "Player";
-    playerDesc.model = model;
+    playerDesc.model = assets::playerModel;
     playerDesc.transform = Transform{ Vector2 {640.0f, 512.0f}, 0.0f, 15.0f };
     playerDesc.speed = 2000.0f;
     playerDesc.velocity = Vector2{ 0.0f, 0.0f };
@@ -77,7 +75,7 @@ int main()
     for (int i = 0; i < 20; i++){
         EnemyDesc enemyDesc;
         enemyDesc.name = "Enemy";
-        enemyDesc.model = model;
+        enemyDesc.model = assets::playerModel;
         enemyDesc.transform = Transform{ Vector2 {nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetWidth()),
                                                                nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetHeight())} };
         enemyDesc.speed = 2000.0f;

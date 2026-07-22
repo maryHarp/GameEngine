@@ -21,7 +21,9 @@ namespace nu {
     public:
         Actor() = default;
 
-        Actor(const ActorDesc& actorDesc) : 
+        Actor(const ActorDesc& actorDesc) :
+            m_name{ actorDesc.name},
+            m_tag{ actorDesc.tag},
             m_transform{ actorDesc.transform },
             m_velocity{ actorDesc.velocity },
             m_model{actorDesc.model}
