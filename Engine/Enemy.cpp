@@ -8,6 +8,12 @@ void Enemy::Update(float dt) {
 
     Player* player = m_scene->GetActorByName<Player>("Player");
 
+    if (player) {
+        nu::Vector2 direction = player->GetTransform().position - m_transform.position;
+        float rotation = direction.Angle();
+        SetRotation(rotation * nu::RadToDeg);
+    }
+
     float thrust = 0.0f;
     /*if (nu::Engine::Get()..GetInput().GetKeyDown(SDL_SCANCODE_W)) thrust = m_speed;
     if (nu::Engine::Get()..GetInput().GetKeyDown(SDL_SCANCODE_S)) thrust = -m_speed;*/
@@ -17,7 +23,7 @@ void Enemy::Update(float dt) {
     /*if (nu::Engine::Get()..GetInput().GetKeyDown(SDL_SCANCODE_A)) rotate = -180.0f;
     if (nu::Engine::Get()..GetInput().GetKeyDown(SDL_SCANCODE_D)) rotate = +180.0f;*/
 
-    SetRotation(m_transform.rotation + rotate * dt);
+    //SetRotation(m_transform.rotation + rotate * dt);
 
     nu::Vector2 forward{ 1, 0 }; // -> 
     nu::Vector2 velocity = forward.Rotate(m_transform.rotation * nu::DegToRad) * thrust;
