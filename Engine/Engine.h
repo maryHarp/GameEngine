@@ -5,6 +5,7 @@
 #include "Vector3.h"
 #include "Transform.h"
 #include "MathUtils.h"
+#include "File.h"
 
 
 
@@ -21,7 +22,7 @@ namespace nu {
 	class Engine {
 	public:
 
-		static Engine& Get() { Engine engine; return engine; }
+		static Engine& Get() { static Engine engine; return engine; }
 
 		bool Initialize();
 		void Shutdown();

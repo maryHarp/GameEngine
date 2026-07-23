@@ -5,20 +5,20 @@
 #include <string>
 
 namespace nu {
-
+	class Actor;
 
 	class Scene {
 	public:
-		void AddActor(Actor* actor); 
+		void AddActor(class Actor* actor); 
 		
 		void Update(float dt);
 		void Draw(const class Renderer& renderer);
 
-		template<typename T>
+		template<typename T = Actor>
 		T* GetActorByName(const std::string& name);
 
 	private:
-		std::vector<Actor*> m_actors;
+		std::vector<class Actor*> m_actors;
 	};
 
 	template<typename T>

@@ -16,16 +16,66 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Assets.h"
-#include <fmod.hpp>
+
 
 #include <iostream>
 #include <vector>
-
+#include <fmod.hpp>
 using namespace nu;
 
 
 int main()
 {
+
+    // get current working directory
+    std::cout << "Directory Operations:\n";
+    std::cout << "Working directory: " << nu::GetWorkingDirectory() << "\n";
+
+    // set working directory (current working directory + "Assets")
+    std::cout << "Setting directory to 'Assets'...\n";
+    nu::SetWorkingDirectory("Assets");
+    std::cout << "New directory: " << nu::GetWorkingDirectory() << "\n\n";
+
+    // get filenames in the working directory
+    std::cout << "Files in Directory:\n";
+    auto filenames = nu::GetFilesInDirectory(nu::GetWorkingDirectory());
+    for (const auto& filename : filenames)
+    {
+        std::cout << filename << "\n";
+    }
+    std::cout << "\n";
+
+    // get filename info
+    if (!filenames.empty())
+    {
+        // get filename
+        std::string str = nu::GetFilename(filenames[0]);
+        std::cout << "Filename: " << str << "\n";
+
+        // get extension
+        str = nu::GetFileExtension(filenames[0]);
+        std::cout << "Extension: " << str << "\n";
+
+        // get filename no extension
+        str = nu::GetFilenameNoExtension(filenames[0]);
+        std::cout << "Filename No Extension: " << str << "\n\n";
+    }
+
+    // read and display text file
+    std::cout << "Text File Reading:\n";
+    std::string str;
+    if (nu::ReadTextFile("test.txt", str))
+    {
+        std::cout << str << "\n";
+    }
+
+    // write to text file
+    std::cout << "Text File Writing:\n";
+    nu::WriteTextFile("test.txt", "Hello, World!", true);
+    if (nu::ReadTextFile("test.txt", str))
+    {
+        std::cout << str << "\n";
+    }
 
     //INITIAL
 
@@ -53,7 +103,7 @@ int main()
     audio->createSound("hee-hee.mp3", FMOD_DEFAULT, 0, &sound);
     sounds.push_back(sound);
     
-   /* Mesh body{ { Vector2{2, 0}, Vector2{0, 1}, Vector2{ -2, 3}, 
+   /*Mesh body{ { Vector2{2, 0}, Vector2{0, 1}, Vector2{ -2, 3}, 
                  Vector2{ -1, 0}, Vector2{ -3, -3}, Vector2{ 0, -1}, Vector2{2, 0}}, Color{ 1.0f, 0.0f, 1.0f }};
     Mesh wings{ { Vector2{1, 3}, Vector2{0, 1}, Vector2{ 0, -1}, Vector2{1, -3}, Vector2{1, 3}}, Color{1.0f, 0.5f, 1.0f} };
 
@@ -75,7 +125,7 @@ int main()
     for (int i = 0; i < 20; i++){
         EnemyDesc enemyDesc;
         enemyDesc.name = "Enemy";
-        enemyDesc.model = assets::playerModel;
+        enemyDesc.model = assets::enemyModel;
         enemyDesc.transform = Transform{ Vector2 {nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetWidth()),
                                                                nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetHeight())} };
         enemyDesc.speed = 2000.0f;

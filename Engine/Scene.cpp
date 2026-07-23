@@ -1,11 +1,10 @@
-#pragma once
 #include "pch.h"
 #include "Scene.h"
 #include "Actor.h"
 
 namespace nu {
 
-	void Scene::AddActor(Actor* actor)
+	void Scene::AddActor(class Actor* actor)
 	{ 
 		actor->m_scene = this;
 		m_actors.push_back(actor); 
