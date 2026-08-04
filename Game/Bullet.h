@@ -3,7 +3,7 @@
 
 
 struct BulletDesc : public nu::ActorDesc {
-    float speed;
+    float speed = 400.0F;
 
 };
 

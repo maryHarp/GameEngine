@@ -3,7 +3,7 @@
 
 
 struct EnemyDesc : public nu::ActorDesc {
-    float speed;
+    float speed = 0.0f;
 
 };
 

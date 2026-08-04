@@ -74,7 +74,7 @@ int main()
         std::cout << objectA.get() << std::endl;
         std::unique_ptr<Object> objectB;
         objectB = std::move(objectA); 
-        std::cout << objectA.get() << std::endl; // the 'guts' are ripped out and given to B
+        //std::cout << objectA.get() << std::endl; // the 'guts' are ripped out and given to B
         std::cout << objectB.get() << std::endl;
 
         objectB.reset();
