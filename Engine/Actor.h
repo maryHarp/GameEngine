@@ -3,6 +3,7 @@
 #include "Transform.h"
 #include "Model.h"
 #include <string>
+#include <memory>
 
 namespace nu {
 
@@ -15,7 +16,7 @@ namespace nu {
         Vector2 velocity{0.0f, 0.0f};
         float damping{ 0.0f };
         float lifespan{ 0.0f };
-        Model model;
+        std::shared_ptr<Model> model;
     };
 
     class Actor
@@ -32,12 +33,7 @@ namespace nu {
             m_damping{actorDesc.damping},
             m_lifespan{actorDesc.lifespan}
         {}
-
-        Actor(const Transform& transform) : m_transform{ transform } {}
-        Actor(const Transform& transform, const Model& model) : 
-            m_transform{ transform },
-            m_model{model}
-        { }
+        
 
         virtual void Update(float dt);
 
@@ -61,6 +57,7 @@ namespace nu {
         Scene* GetScene() { return m_scene; }
 
         float GetRadius() const;
+        void SetModel(std::shared_ptr<Model> model) { m_model = model; }
 
         void SetDestroyed(bool destroy = true) { m_destroyed = destroy; }
         bool GetDestroyed()const { return m_destroyed; }
@@ -79,7 +76,7 @@ namespace nu {
         float m_lifespan{ 0.0f };
         bool m_destroyed{ false };
 
-        Model m_model;
+        std::shared_ptr<Model> m_model;
         Scene* m_scene{ nullptr };
 
     };

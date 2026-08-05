@@ -17,6 +17,7 @@
 #include "Enemy.h"
 #include "Assets.h"
 #include "SpaceGame.h"
+#include "Texture.h"
 
 
 #include <iostream>
@@ -68,7 +69,7 @@ int main()
         //delete objectC;
 
     }
-    std::cout << "==================smart pointers=================\n";
+    std::cout << "==================unique pointers=================\n";
     {
         std::unique_ptr<Object> objectA = std::make_unique<Object>();
         std::cout << objectA.get() << std::endl;
@@ -82,9 +83,24 @@ int main()
 
     }
 
+    std::cout << "==================shared pointers=================\n";
+    std::shared_ptr<Object> objectC;
+    {
+        //std::shared_ptr<Object> objectA = std::make_shared<Object>();
+        auto objectA = std::make_shared<Object>();
+        std::cout << objectA.get() << std::endl;
+        std::cout << objectA.use_count() << std::endl;
+        auto objectB = objectA;
+        std::cout << objectB.get() << std::endl;
+        std::cout << objectB.use_count() << std::endl;
+        objectC = objectA;
+        std::cout << objectC.get() << std::endl;
+        std::cout << objectC.use_count() << std::endl;
+    }
+    std::cout << objectC.use_count() << std::endl;
 
     //returns program w/o everything else
-    return 0;
+    //return 0;
 
     // get current working directory
     std::cout << "Directory Operations:\n";
@@ -144,11 +160,8 @@ int main()
     SpaceGame game;
     game.Initialize();
 
-    Font* font = new Font();
-    font->Load("fonts/font.ttf", 20);
-
-    Text* text = new Text(font);
-    text->Create(Engine::Get().GetRenderer(), "Hello World", Color{ 1, 1, 1 });
+    std::shared_ptr<Texture> texture = std::make_shared<Texture>();
+    texture->Load("textures/SpaceCat.png", Engine::Get().GetRenderer());
 
 
 
@@ -229,7 +242,8 @@ int main()
 
         Engine::Get().GetPS().Draw(Engine::Get().GetRenderer());
 
-        
+        // TODO:: get engine renderer.DrawTexture(...get() texture pointer..., 30, 30);
+        Engine::Get().GetRenderer().DrawTexture(texture.get(), 30.0f, 30.0f);
         
         Engine::Get().GetRenderer().Present();
     }

@@ -11,7 +11,7 @@ namespace assets {
                  Vector2{ -3, -3}, Vector2{ 0, -1}, Vector2{2, 0}}, Color{ 1.0f, 0.0f, 1.0f } };
     Mesh wings{ { Vector2{1, 3}, Vector2{0, 1}, Vector2{ 0, -1}, Vector2{1, -3}, Vector2{1, 3}}, Color{1.0f, 0.5f, 1.0f} };
 
-    Model playerModel{ std::vector<Mesh>{ body, wings } };
+    std::shared_ptr<Model> playerModel = std::make_shared<Model> ( std::vector<Mesh>{ body, wings } );
     //model.AddMesh(wings);
 
 
@@ -22,7 +22,7 @@ namespace assets {
                  Vector2{ -3, -3}, Vector2{ 0, -1}, Vector2{2, 0}}, Color{ 1.0f, 0.0f, 1.0f } };
     Mesh enemyWings{ { Vector2{1, 3}, Vector2{0, 1}, Vector2{ 0, -1}, Vector2{1, -3}, Vector2{1, 3}}, Color{1.0f, 1.0f, 1.0f} };
 
-    Model enemyModel{ std::vector<Mesh>{ enemyBody, enemyWings } };
+    std::shared_ptr<Model> enemyModel = std::make_shared<Model> ( std::vector<Mesh>{ enemyBody, enemyWings } );
 
 
     Mesh bulletMesh{
@@ -35,5 +35,5 @@ namespace assets {
         Color{ 1.0f, 0.0f, 0.0f }
     };
 
-    Model bulletModel{ std::vector<Mesh>{ bulletMesh } };
+    std::shared_ptr<Model> bulletModel = std::make_shared<Model>( std::vector<Mesh>{ bulletMesh } );
 }

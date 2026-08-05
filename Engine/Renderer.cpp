@@ -3,6 +3,7 @@
 #include "Transform.h"
 #include "Model.h"
 #include "MathUtils.h"
+#include "Texture.h"
 
 
 
@@ -120,6 +121,21 @@ namespace nu
         }
 
         
+    }
+
+    void Renderer::DrawTexture(Texture* texture, float x, float y)
+    {
+        if (!texture) return;
+        Vector2 size = texture->GetSize();
+
+            SDL_FRect destRect;
+        destRect.x = x;
+        destRect.y = y;
+        destRect.w = size.x;
+        destRect.h = size.y;
+
+        // https://wiki.libsdl.org/SDL3/SDL_RenderTexture
+        SDL_RenderTexture(m_renderer, texture->m_texture, NULL, &destRect);
     }
 
     
