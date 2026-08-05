@@ -4,6 +4,8 @@
 #include "Enemy.h"
 #include "Assets.h"
 
+#include <memory>
+
 using namespace nu;
 class Scene;
 
@@ -13,13 +15,18 @@ bool SpaceGame::Initialize() {
 	m_scene = new nu::Scene();
 	m_scene->SetGame(this);
 
-	m_titleFont = new Font();
+	m_titleFont = std::make_shared<Font>();
+
+	//Resources().Get<Font>("fonts/font.ttf", 100);
+	//Resources().Get<Tecture>("textures/player.png", Engine::Get().GetRenderer());
+
+
 	m_titleFont->Load("fonts/font.ttf", 100);
 
 	m_titleText = new Text(m_titleFont);
 	m_titleText->Create(Engine::Get().GetRenderer(), "AstroBlast", Color{ 1, 1, 1 });
 
-	m_gameFont = new Font();
+	m_gameFont = std::make_shared<Font>();
 	m_gameFont->Load("fonts/font.ttf", 32);
 
 	m_scoreText = new Text(m_gameFont);
@@ -28,7 +35,7 @@ bool SpaceGame::Initialize() {
 	
 
 
-	m_gameOverFont = new Font();
+	m_gameOverFont = std::make_shared<Font>();
 	m_gameOverFont->Load("fonts/font.ttf", 100);
 
 	m_gameOverText = new Text(m_gameOverFont);
