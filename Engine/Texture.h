@@ -14,12 +14,15 @@ namespace nu {
 
 		bool Load(const std::string& filename, class Renderer& renderer);
 
-		Vector2 GetSize();
+		const Vector2& GetSize() const {
+			return m_size;
+		}
 
 		friend class Renderer;
 
 	private:
 		SDL_Texture* m_texture{ nullptr };
+		Vector2 m_size{ 0.0f,0.0f };
 	};
 }
 

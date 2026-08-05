@@ -161,7 +161,7 @@ int main()
     game.Initialize();
 
     std::shared_ptr<Texture> texture = std::make_shared<Texture>();
-    texture->Load("textures/SpaceCat.png", Engine::Get().GetRenderer());
+    texture->Load("textures/player.png", Engine::Get().GetRenderer());
 
 
 
@@ -222,10 +222,7 @@ int main()
 
         Engine::Get().Update();
 
-        //player.SetRotation(player.GetTransform().rotation +(90.0f * Engine::Get().GetTime().GetDeltaTime()));
-        /*player.SetRotation(90.0f);*/
-        //enemy.Update(Engine::Get().GetTime().GetDeltaTime());
-
+   
         float dt = Engine::Get().GetTime().GetDeltaTime();
 
         
@@ -243,7 +240,7 @@ int main()
         Engine::Get().GetPS().Draw(Engine::Get().GetRenderer());
 
         // TODO:: get engine renderer.DrawTexture(...get() texture pointer..., 30, 30);
-        Engine::Get().GetRenderer().DrawTexture(texture.get(), 30.0f, 30.0f);
+        Engine::Get().GetRenderer().DrawTexture(*texture, 30.0f, 30.0f);
         
         Engine::Get().GetRenderer().Present();
     }
