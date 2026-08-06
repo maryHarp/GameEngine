@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Assets.h"
+#include "ResourceManager.h"
 
 #include <memory>
 
@@ -15,23 +16,18 @@ bool SpaceGame::Initialize() {
 	m_scene = new nu::Scene();
 	m_scene->SetGame(this);
 
-	m_titleFont = std::make_shared<Font>();
+	//m_titleFont->Load("fonts/font.ttf", 100);
 
 	//Resources().Get<Font>("fonts/font.ttf", 100);
-	//Resources().Get<Tecture>("textures/player.png", Engine::Get().GetRenderer());
+	//Resources().Get<Texture>("textures/player.png", Engine::Get().GetRenderer());
 
 
-	m_titleFont->Load("fonts/font.ttf", 100);
-
-	m_titleText = new Text(m_titleFont);
+	m_titleText = new Text(Resources().Get<Font>("fonts/font.ttf", 100));
 	m_titleText->Create(Engine::Get().GetRenderer(), "AstroBlast", Color{ 1, 1, 1 });
 
-	m_gameFont = std::make_shared<Font>();
-	m_gameFont->Load("fonts/font.ttf", 32);
-
-	m_scoreText = new Text(m_gameFont);
-	m_livesText = new Text(m_gameFont);
-	m_roundsText = new Text(m_gameFont);
+	m_scoreText = new Text(Resources().Get<Font>("fonts/font.ttf", 32));
+	m_livesText = new Text(Resources().Get<Font>("fonts/font.ttf", 32));
+	m_roundsText = new Text(Resources().Get<Font>("fonts/font.ttf", 32));
 	
 
 

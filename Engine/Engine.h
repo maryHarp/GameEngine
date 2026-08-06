@@ -10,6 +10,8 @@
 
 #include "Text.h"
 
+#include "ResourceManager.h"
+
 
 
 //systems
