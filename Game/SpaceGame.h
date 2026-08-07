@@ -71,10 +71,11 @@ private:
 
 	//nu::Font* m_gameOverFont{ nullptr };
 	nu::Text* m_gameOverText{ nullptr };
+	nu::Text* m_gameText{ nullptr };
 
 	//nu::Font* m_gameFont{ nullptr };
 
-	nu::Text* m_scoreText{ nullptr };
-	nu::Text* m_livesText{ nullptr };
-	nu::Text* m_roundsText{ nullptr };
+	//nu::Text* m_scoreText{ nullptr };
+	//nu::Text* m_livesText{ nullptr };
+	//nu::Text* m_roundsText{ nullptr };
 };

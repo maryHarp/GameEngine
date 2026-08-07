@@ -17,14 +17,12 @@ bool SpaceGame::Initialize() {
 	m_scene->SetGame(this);
 
 
-	m_titleText = new Text(Resources().Get<Font>("fonts/font.ttf", 100.0f));
+	m_titleText = new Text(Resources().Get<Font>("fonts/font.ttf", 50.0f));
 	m_titleText->Create(Engine::Get().GetRenderer(), "AstroBlast", Color{ 1, 1, 1 });
 
-	m_scoreText = new Text(Resources().Get<Font>("fonts/font.ttf", 3.0f));
-	m_livesText = new Text(Resources().Get<Font>("fonts/font.ttf", 3.0f));
-	m_roundsText = new Text(Resources().Get<Font>("fonts/font.ttf", 3.0f));
+	m_gameText = new Text(Resources().Get<Font>("fonts/font.ttf", 10.0f));
 
-	m_gameOverText = new Text(Resources().Get<Font>("fonts/font.ttf", 100.0f));
+	m_gameOverText = new Text(Resources().Get<Font>("fonts/font.ttf", 50.0f));
 
 	//Engine::Get().GetAudio().AddSound("alert", "audio/alert.mp3");
 
@@ -89,7 +87,6 @@ void SpaceGame::Update(float dt){
 		if (m_stateTimer <= 0) {
 			m_scene->RemoveAllActors();
 
-			
 
 		}
 		if (Engine::Get().GetInput().GetKeyPressed(SDL_SCANCODE_SPACE)) {
@@ -101,8 +98,6 @@ void SpaceGame::Update(float dt){
 		//draw game over
 		if (m_stateTimer <= 0) {
 			m_scene->RemoveAllActors();
-
-			
 
 		}
 		if (Engine::Get().GetInput().GetKeyPressed(SDL_SCANCODE_SPACE)) {
@@ -120,7 +115,7 @@ void SpaceGame::Draw(nu::Renderer& renderer) {
 	switch (m_gameState)
 	{
 	case SpaceGame::Title:
-		m_titleText->Draw(renderer, 325, 450);
+		m_titleText->Draw(renderer, 450, 450);
 		break;
 	case SpaceGame::StartGame:
 		break;
@@ -128,20 +123,20 @@ void SpaceGame::Draw(nu::Renderer& renderer) {
 
 		break;
 	case SpaceGame::Game:
-		m_scoreText->Create(renderer, "Score: " + std::to_string(m_score), { 1.0f, 1.0f, 1.0f });
-		m_scoreText->Draw(renderer, 30, 30);
-		m_livesText->Create(renderer, "Lives: " + std::to_string(m_lives), { 1.0f, 1.0f, 1.0f });
-		m_livesText->Draw(renderer, 30, 60);
-		m_roundsText->Create(renderer, "Round: " + std::to_string(m_round) + " / " + std::to_string(m_maxRounds), {1.0f, 1.0f, 1.0f});
-		m_roundsText->Draw(renderer, 30, 90);
+		m_gameText->Create(renderer, "Score: " + std::to_string(m_score), { 1.0f, 1.0f, 1.0f });
+		m_gameText->Draw(renderer, 30, 30);
+		m_gameText->Create(renderer, "Lives: " + std::to_string(m_lives), { 1.0f, 1.0f, 1.0f });
+		m_gameText->Draw(renderer, 30, 60);
+		m_gameText->Create(renderer, "Round: " + std::to_string(m_round) + " / " + std::to_string(m_maxRounds), {1.0f, 1.0f, 1.0f});
+		m_gameText->Draw(renderer, 30, 90);
 		break;
 	case SpaceGame::GameOver:
 		m_gameOverText->Create(renderer, "GAME OVER", { 1.0f, 0.0f, 0.0f });
-		m_gameOverText->Draw(renderer, 325, 450);
+		m_gameOverText->Draw(renderer, 450, 450);
 		break;
 	case SpaceGame::Win:
 		m_gameOverText->Create(renderer, "YOU WIN!", { 0.0f, 1.0f, 0.0f });
-		m_gameOverText->Draw(renderer, 325, 450);
+		m_gameOverText->Draw(renderer, 450, 450);
 		break;
 	default:
 		break;

@@ -232,7 +232,7 @@ int main()
         Engine::Get().GetPS().Draw(Engine::Get().GetRenderer());
 
         // TODO:: get engine renderer.DrawTexture(...get() texture pointer..., 30, 30);
-        Engine::Get().GetRenderer().DrawTexture(*Resources().Get<Texture>("textures/player.png", Engine::Get().GetRenderer()), 30.0f, 30.0f);
+        //Engine::Get().GetRenderer().DrawTexture(*Resources().Get<Texture>("textures/player.png", Engine::Get().GetRenderer()), 30.0f, 30.0f);
         
         Engine::Get().GetRenderer().Present();
     }
