@@ -16,25 +16,15 @@ bool SpaceGame::Initialize() {
 	m_scene = new nu::Scene();
 	m_scene->SetGame(this);
 
-	//m_titleFont->Load("fonts/font.ttf", 100);
 
-	//Resources().Get<Font>("fonts/font.ttf", 100);
-	//Resources().Get<Texture>("textures/player.png", Engine::Get().GetRenderer());
-
-
-	m_titleText = new Text(Resources().Get<Font>("fonts/font.ttf", 100));
+	m_titleText = new Text(Resources().Get<Font>("fonts/font.ttf", 100.0f));
 	m_titleText->Create(Engine::Get().GetRenderer(), "AstroBlast", Color{ 1, 1, 1 });
 
-	m_scoreText = new Text(Resources().Get<Font>("fonts/font.ttf", 32));
-	m_livesText = new Text(Resources().Get<Font>("fonts/font.ttf", 32));
-	m_roundsText = new Text(Resources().Get<Font>("fonts/font.ttf", 32));
-	
+	m_scoreText = new Text(Resources().Get<Font>("fonts/font.ttf", 3.0f));
+	m_livesText = new Text(Resources().Get<Font>("fonts/font.ttf", 3.0f));
+	m_roundsText = new Text(Resources().Get<Font>("fonts/font.ttf", 3.0f));
 
-
-	m_gameOverFont = std::make_shared<Font>();
-	m_gameOverFont->Load("fonts/font.ttf", 100);
-
-	m_gameOverText = new Text(m_gameOverFont);
+	m_gameOverText = new Text(Resources().Get<Font>("fonts/font.ttf", 100.0f));
 
 	//Engine::Get().GetAudio().AddSound("alert", "audio/alert.mp3");
 
@@ -126,6 +116,7 @@ void SpaceGame::Update(float dt){
 }
 
 void SpaceGame::Draw(nu::Renderer& renderer) {
+	renderer.DrawTexture(*nu::Resources().Get<Texture>("textures/background.png", Engine::Get().GetRenderer()), 500, 500, 0, 5.0f);
 	switch (m_gameState)
 	{
 	case SpaceGame::Title:
@@ -178,8 +169,10 @@ void SpaceGame::OnPlayerDead()
 void SpaceGame::SpawnPlayer() {
 	PlayerDesc playerDesc;
 	playerDesc.name = "Player";
-	playerDesc.model = assets::playerModel;
-	playerDesc.transform = Transform{ Vector2 {640.0f, 512.0f}, 0.0f, 15.0f };
+	//playerDesc.model = assets::playerModel;
+	std::string png = "textures/player.png";
+	playerDesc.texture = Resources().Get<Texture>(png, Engine::Get().GetRenderer());
+	playerDesc.transform = Transform{ Vector2 {640.0f, 512.0f}, 0.0f, 1.0f };
 	playerDesc.speed = 2000.0f;
 	playerDesc.velocity = Vector2{ 0.0f, 0.0f };
 	playerDesc.damping = 3.0f;
@@ -193,9 +186,10 @@ void SpaceGame::SpawnEnemy(int count)
 	for (int i = 0; i < count; i++) {
 		EnemyDesc enemyDesc;
 		enemyDesc.name = "Enemy";
-		enemyDesc.model = assets::enemyModel;
+		//enemyDesc.model = assets::enemyModel;
+		enemyDesc.texture = Resources().Get<Texture>("textures/enemy.png", Engine::Get().GetRenderer());
 		enemyDesc.transform = Transform{ Vector2 {nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetWidth()),
-															   nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetHeight())}, 0.0f, 15.0f };
+															   nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetHeight())}, 0.0f, 1.0f };
 		enemyDesc.speed = 500.0f;
 		enemyDesc.damping = 3.0f;
 

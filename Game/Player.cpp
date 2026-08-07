@@ -6,6 +6,8 @@
 #include "Model.h"
 #include "Assets.h"
 #include "SpaceGame.h"
+#include "ResourceManager.h"
+#include <memory>
 
 void Player::Update(float dt) {
     
@@ -51,9 +53,9 @@ void Player::Update(float dt) {
         BulletDesc desc;
         desc.name = "Bullet";
         desc.tag = "PlayerBullet";
-        desc.model = assets::enemyModel;
+        desc.texture = nu::Resources().Get<nu::Texture>("textures/bullet.png", nu::Engine::Get().GetRenderer());
         desc.transform = m_transform;
-        desc.transform.scale = 7.0f;
+        desc.transform.scale = 1.0f;
         desc.speed = 1000.0f;
         desc.lifespan = 1.0f;
      

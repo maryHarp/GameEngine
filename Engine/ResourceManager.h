@@ -26,7 +26,7 @@ namespace nu {
 
 	template<typename T, typename ...Args>
 		requires std::derived_from<T, Resource>
-	inline res_t<T> ResourceManager::Get(const std::string& name, Args&& ... args)
+	inline res_t<T> ResourceManager::Get(const std::string& name, Args && ... args)
 	{
 		return GetWithID<T>(name, name, std::forward<Args>(args)...);
 	}

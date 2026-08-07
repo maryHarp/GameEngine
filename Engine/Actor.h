@@ -4,10 +4,12 @@
 #include "Model.h"
 #include <string>
 #include <memory>
+#include "Resource.h"
 
 namespace nu {
 
     class Scene;
+    class Texture;
 
     struct ActorDesc {
         std::string name;
@@ -16,7 +18,8 @@ namespace nu {
         Vector2 velocity{0.0f, 0.0f};
         float damping{ 0.0f };
         float lifespan{ 0.0f };
-        std::shared_ptr<Model> model;
+        res_t<Model> model;
+        res_t<Texture> texture;
     };
 
     class Actor
@@ -29,9 +32,10 @@ namespace nu {
             m_tag{ actorDesc.tag},
             m_transform{ actorDesc.transform },
             m_velocity{ actorDesc.velocity },
-            m_model{actorDesc.model},
             m_damping{actorDesc.damping},
-            m_lifespan{actorDesc.lifespan}
+            m_lifespan{actorDesc.lifespan},
+            m_model{actorDesc.model},
+            m_texture{actorDesc.texture}
         {}
         
 
@@ -76,7 +80,8 @@ namespace nu {
         float m_lifespan{ 0.0f };
         bool m_destroyed{ false };
 
-        std::shared_ptr<Model> m_model;
+        res_t<Model> m_model;
+        res_t<Texture> m_texture;
         Scene* m_scene{ nullptr };
 
     };
