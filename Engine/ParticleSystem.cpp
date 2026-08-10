@@ -1,12 +1,17 @@
 #include "pch.h"
 #include "ParticleSystem.h"
 #include "Renderer.h"
+#include "ResourceManager.h"
+#include "Engine.h"
+
+#include <memory>
 
 namespace nu {
 	bool ParticleSystem::Initialize(size_t size)
 	{
 		// reserve # particles in container
 		m_particles.resize(size);
+		m_texture = Resources().Get<Texture>("textures/SpaceCat.png", Engine::Get().GetRenderer());
 
 		return true;
 	}
@@ -52,7 +57,7 @@ namespace nu {
 				// TODO: draw point with particle position
 
 				renderer.setColor(particle.color.r, particle.color.g, particle.color.b);
-				renderer.DrawPoint(particle.position.x, particle.position.y);
+				renderer.DrawTexture(*m_texture, particle.position.x, particle.position.y, m_transform.rotation, 0.25f);
 
 			}
 		}

@@ -1,12 +1,18 @@
 #pragma once
 #include "Vector2.h"
 #include "Vector3.h"
+#include "ResourceManager.h"
+#include "Transform.h"
+#include "Resource.h"
 
 #include <vector>
+#include <memory>
 
 
 
 namespace nu {
+	class Texture;
+
 	struct Particle
 	{
 		bool active{ false };
@@ -35,6 +41,10 @@ namespace nu {
 
 	private:
 		// store particles in particle pool
+		res_t<Texture> m_texture;
+
+		Transform m_transform;
+
 		std::vector<Particle> m_particles;
 	};
 
