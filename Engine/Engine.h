@@ -14,6 +14,9 @@
 #include "ResourceManager.h"
 
 #include "Json.h"
+#include "StringUtils.h"
+
+#include "Factory.h"
 
 //systems
 #include "Random.h"

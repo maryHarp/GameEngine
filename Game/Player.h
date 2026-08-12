@@ -24,6 +24,10 @@ public:
 
     bool IsInvincible() const { return m_invinibleTimer > 0.0f; }
 
+    float GetSpeed() const { return m_speed;  }
+
+    void Read(const nu::json::value_t& value) override;
+
 private:
     float m_speed = 4000.0f;
     float m_invinibleTimer = 1.0f;

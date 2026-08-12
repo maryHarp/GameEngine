@@ -9,7 +9,7 @@
 
 namespace nu::json
 {
-    bool Load(const std::string& filename, rapidjson::Document& document)
+    bool Load(const std::string& filename, document_t& document)
     {
         // read the file into a string
         std::string buffer;
@@ -45,7 +45,7 @@ namespace nu::json
         return true;
     }
 
-    bool Read(const rapidjson::Value& value, const std::string& name, int& data)
+    bool Read(const value_t& value, const std::string& name, int& data)
     {
         // check if the value has the "<name>" and the correct data type
         if (!value.HasMember(name.c_str()) || !value[name.c_str()].IsInt())
@@ -60,7 +60,7 @@ namespace nu::json
         return true;
     }
 
-    bool Read(const rapidjson::Value& value, const std::string& name, float& data)
+    bool Read(const value_t& value, const std::string& name, float& data)
     {
         // check if the value has the "<name>" and the correct data type
         if (!value.HasMember(name.c_str()) || !value[name.c_str()].IsNumber())
@@ -75,7 +75,7 @@ namespace nu::json
         return true;
     }
 
-    bool Read(const rapidjson::Value& value, const std::string& name, bool& data)
+    bool Read(const value_t& value, const std::string& name, bool& data)
     {
         // check if the value has the "<name>" and the correct data type
         if (!value.HasMember(name.c_str()) || !value[name.c_str()].IsBool())
@@ -90,7 +90,7 @@ namespace nu::json
         return true;
     }
 
-    bool Read(const rapidjson::Value& value, const std::string& name, std::string& data)
+    bool Read(const value_t& value, const std::string& name, std::string& data)
     {
         // check if the value has the "<name>" and the correct data type
         if (!value.HasMember(name.c_str()) || !value[name.c_str()].IsString())
@@ -105,7 +105,7 @@ namespace nu::json
         return true;
     }
 
-    bool Read(const rapidjson::Value& value, const std::string& name, Vector2& data)
+    bool Read(const value_t& value, const std::string& name, Vector2& data)
     {
         // check if the value has the "<name>" and the correct data type
         if (!value.HasMember(name.c_str()) || !value[name.c_str()].IsArray() || value[name.c_str()].Size() != 2)
@@ -134,7 +134,7 @@ namespace nu::json
         return true;
     }
 
-    bool Read(const rapidjson::Value& value, const std::string& name, Vector3& data)
+    bool Read(const value_t& value, const std::string& name, Vector3& data)
     {
         // check if the value has the "<name>" and the correct data type
         if (!value.HasMember(name.c_str()) || !value[name.c_str()].IsArray() || value[name.c_str()].Size() != 3)

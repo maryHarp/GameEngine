@@ -5,7 +5,6 @@
 #include "Assets.h"
 #include "SpaceGame.h"
 #include "Texture.h"
-#include "File.h"
 
 
 #include <iostream>
@@ -19,10 +18,130 @@
 
 using namespace nu;
 
+class Animal {
+public:
+    virtual void speak() {
+        std::cout << "???";
+    }
+};
+class Cat : public Animal {
+    void speak() override {
+        std::cout << "Meow";
+    }
+};
+class Dog : public Animal {
+    void speak() override {
+        std::cout << "Bark";
+    }
+};
+class Bird : public Animal {
+    void speak() override {
+        std::cout << "Chirp";
+    }
+};
+
+//enum class Type
+//{
+//    Cat = 1,
+//    Dog,
+//    Bird
+//};
+//
+//Animal* AnimalFactory(Type id) {
+//    Animal* animal = nullptr;
+//
+//    switch (id)
+//    {
+//    case Type::Cat: // cat
+//        animal = new Cat;
+//        break;
+//    case Type::Dog:
+//        animal = new Dog;
+//        break;
+//    case Type::Bird:
+//        animal = new Bird;
+//        break;
+//    }
+//
+//    return animal;
+//}
+
+Animal* AnimalFactory(const std::string id) {
+    Animal* animal = nullptr;
+
+    if (nu::ToLower(id) == "cat") animal = new Cat;
+    else if (nu::EqualsIgnoreCase(id, "Dog")) animal = new Dog;
+    else if (nu::ToUpper(id) == "Bird") animal = new Bird;
+
+    return animal;
+}
+
+//class ICreator {
+//public:
+//    virtual ~ICreator() = default;
+//    virtual std::unique_ptr<Animal> Create() = 0;
+//};
+//
+//template <typename T>
+//
+//class Creator : public ICreator {
+//    public:
+//        std::unique_ptr<Animal> Create() override { return std::make_unique<T>(); }
+//};
+//
+//std::map<std::string, std::unique_ptr<ICreator>> registry;
+
+
 
 int main()
 {
     nu::SetWorkingDirectory("Assets");
+
+    Factory::Instance().Register<Actor>("Actor");
+    Factory::Instance().Register<Object>("Object");
+    Factory::Instance().Register<Player>("Player");
+
+    auto actor = Factory::Instance().Create<Actor>("Actor");
+    std::cout << actor->IsActive() << std::endl;
+
+    auto object = Factory::Instance().Create("Object");
+    std::cout << object->IsActive() << std::endl;
+
+    auto player = Factory::Instance().Create<Player>("Player");
+    std::cout << player->IsActive() << std::endl;
+
+    json::document_t document;
+    if (json::Load("data/scene.json", document)) {
+        player->Read(document);
+        std::cout << player->GetName() << std::endl;
+        std::cout << player->GetTag() << std::endl;
+
+        std::cout << player->GetTransform().rotation << std::endl;
+        std::cout << player->GetSpeed() << std::endl;
+    }
+
+
+
+
+    /*registry["Cat"] = std::make_unique<Creator<Cat>>();
+    registry["Dog"] = std::make_unique<Creator<Dog>>();
+
+    auto animal = registry["Dog"]->Create();
+    animal->speak();*/
+
+   /* std::string selection;
+
+    std::cout << "Select Animal: ";
+    std::cin >> selection;
+
+    auto animal = AnimalFactory(selection);
+    if (animal) animal->speak();*/
+
+
+
+    return 0; 
+
+
 
     // load the json data from a file
     std::string buffer;

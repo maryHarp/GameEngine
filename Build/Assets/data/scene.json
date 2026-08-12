@@ -1,0 +1,14 @@
+{
+ 
+  "name": "Mary G.",
+  "tag": "Instructor",
+  "active": true,
+  "speed": 800,
+  "transform": {
+    "position": [ 2.4, 5.6 ],
+    "rotation": 45,
+    "scale": 2
+  }
+
+
+}
