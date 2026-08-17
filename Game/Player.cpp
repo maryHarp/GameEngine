@@ -9,6 +9,8 @@
 #include "ResourceManager.h"
 #include <memory>
 
+FACTORY_REGISTER(Player)
+
 void Player::Update(float dt) {
     
     //invincibility 
@@ -97,7 +99,7 @@ void Player::OnCollision(Actor* other)
     }
 
 
-    if (other->GetName() == "Enemy") {
+    if (other->GetTag() == "Enemy") {
         SetDestroyed();
         ((SpaceGame*)m_scene->GetGame())->OnPlayerDead();
     }

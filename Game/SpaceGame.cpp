@@ -15,6 +15,7 @@ bool SpaceGame::Initialize() {
 
 	m_scene = new nu::Scene();
 	m_scene->SetGame(this);
+	m_scene->Load("data/scene.json");
 
 
 	m_titleText = new Text(Resources().Get<Font>("fonts/font.ttf", 50.0f));
@@ -162,34 +163,36 @@ void SpaceGame::OnPlayerDead()
 }
 
 void SpaceGame::SpawnPlayer() {
-	PlayerDesc playerDesc;
-	playerDesc.name = "Player";
-	//playerDesc.model = assets::playerModel;
-	std::string png = "textures/player.png";
-	playerDesc.texture = Resources().Get<Texture>(png, Engine::Get().GetRenderer());
-	playerDesc.transform = Transform{ Vector2 {640.0f, 512.0f}, 0.0f, 1.0f };
-	playerDesc.speed = 2000.0f;
-	playerDesc.velocity = Vector2{ 0.0f, 0.0f };
-	playerDesc.damping = 3.0f;
+	auto actor = Factory::Instance().Create<Actor>("PlayerPrototype");
 
-	std::unique_ptr<Player> player = std::make_unique<Player>(playerDesc);
-	m_scene->AddActor(std::move(player));
+
+	m_scene->AddActor(std::move(actor));
+	
+
+
 }
 
 void SpaceGame::SpawnEnemy(int count)
 {
 	for (int i = 0; i < count; i++) {
-		EnemyDesc enemyDesc;
-		enemyDesc.name = "Enemy";
-		//enemyDesc.model = assets::enemyModel;
-		enemyDesc.texture = Resources().Get<Texture>("textures/enemy.png", Engine::Get().GetRenderer());
-		enemyDesc.transform = Transform{ Vector2 {nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetWidth()),
-															   nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetHeight())}, 0.0f, 1.0f };
-		enemyDesc.speed = 500.0f;
-		enemyDesc.damping = 3.0f;
+
+		auto actor = Factory::Instance().Create<Actor>("EnemyPrototype");
 
 
-		m_scene->AddActor(std::move(std::make_unique<Enemy>(enemyDesc)));
+		m_scene->AddActor(std::move(actor));
+
+		//EnemyDesc enemyDesc;
+		//enemyDesc.name = "Enemy";
+		//enemyDesc.tag = "Enemy";
+		////enemyDesc.model = assets::enemyModel;
+		//enemyDesc.texture = Resources().Get<Texture>("textures/enemy.png", Engine::Get().GetRenderer());
+		//enemyDesc.transform = Transform{ Vector2 {nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetWidth()),
+		//													   nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetHeight())}, 0.0f, 1.0f };
+		//enemyDesc.speed = 500.0f;
+		//enemyDesc.damping = 3.0f;
+
+
+		//m_scene->AddActor(std::move(std::make_unique<Enemy>(enemyDesc)));
 	}
 
 

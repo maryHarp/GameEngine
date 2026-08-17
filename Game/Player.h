@@ -17,6 +17,8 @@ public:
 
     {}
 
+    CLASS_PROTOTYPE(Player)
+
 
     void Update(float dt) override;
     

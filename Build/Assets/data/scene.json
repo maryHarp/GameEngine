@@ -1,14 +1,54 @@
 {
- 
-  "name": "Mary G.",
-  "tag": "Instructor",
-  "active": true,
-  "speed": 800,
-  "transform": {
-    "position": [ 2.4, 5.6 ],
-    "rotation": 45,
-    "scale": 2
-  }
+  "actors": [
+    {
+      "type": "Player",
+      "prototype":  true,
+      "name": "PlayerPrototype",
+      "tag": "Player",
+      "active": true,
+      "speed": 2000.0,
+      "damping": 3,
+      "texture": "textures/player.png",
+      "transform": {
+        "position": [ 640, 512 ],
+        "rotation": 0,
+        "scale": 1
+      }
+    },
+
+    {
+      "type": "Enemy",
+      "prototype": true,
+      "name": "EnemyPrototype",
+      "tag": "Enemy",
+      "active": true,
+      "speed": 1500.0,
+      "damping": 3,
+      "texture": "textures/enemy.png",
+      "transform": {
+        "position": [ 640, 512 ],
+        "rotation": 0,
+        "scale": 1
+      }
+    },
+
+    {
+      "type": "Bullet",
+      "prototype": true,
+      "name": "BulletPrototype",
+      "tag": "Bullet",
+      "active": true,
+      "speed": 1000.0,
+      "damping": 3,
+      "texture": "textures/bullet.png",
+      "transform": {
+        "position": [ 640, 512 ],
+        "rotation": 0,
+        "scale": 1
+      }
+    }
+  ]
+  
 
 
 }
