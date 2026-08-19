@@ -163,7 +163,7 @@ void SpaceGame::OnPlayerDead()
 }
 
 void SpaceGame::SpawnPlayer() {
-	auto actor = Factory::Instance().Create<Actor>("PlayerPrototype");
+	auto actor = Factory::Instance().Create<Player>("PlayerPrototype");
 
 
 	m_scene->AddActor(std::move(actor));
@@ -176,7 +176,7 @@ void SpaceGame::SpawnEnemy(int count)
 {
 	for (int i = 0; i < count; i++) {
 
-		auto actor = Factory::Instance().Create<Actor>("EnemyPrototype");
+		auto actor = Factory::Instance().Create<Enemy>("EnemyPrototype");
 
 
 		m_scene->AddActor(std::move(actor));

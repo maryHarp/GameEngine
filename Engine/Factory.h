@@ -115,7 +115,7 @@ namespace nu {
             return std::unique_ptr<T>(derived);
         }
         else {
-            std::cerr << "Object not derived form type: " << name << std::endl;
+            std::cerr << "Object not derived from type: " << name << std::endl;
             return std::unique_ptr<T>(derived);
         }
 

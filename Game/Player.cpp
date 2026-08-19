@@ -52,7 +52,15 @@ void Player::Update(float dt) {
 
     //fire
     if (nu::Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_SPACE)) {
-        BulletDesc desc;
+
+        auto bullet = nu::Factory::Instance().Create<Bullet>("BulletPrototype");
+        bullet->SetTransform(m_transform);
+        bullet->SetScale(2.0f);
+        bullet->SetTag("PlayerBullet");
+
+        m_scene->AddActor(std::move(bullet));
+
+        /*BulletDesc desc;
         desc.name = "Bullet";
         desc.tag = "PlayerBullet";
         desc.texture = nu::Resources().Get<nu::Texture>("textures/bullet.png", nu::Engine::Get().GetRenderer());
@@ -74,7 +82,7 @@ void Player::Update(float dt) {
             desc.transform.rotation -= 40.0f;
             m_scene->AddActor(std::move(std::make_unique<Bullet>(desc)));
 
-        }
+        }*/
 
         
     }

@@ -22,7 +22,7 @@ using namespace nu;
 
 int main()
 {
-    nu::SetWorkingDirectory("Assets");
+    SetWorkingDirectory("Assets");
 
    /* 
 

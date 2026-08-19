@@ -4,12 +4,27 @@
 #include "MathUtils.h"
 #include "Texture.h"
 #include "Engine.h"
+#include "Components/RendererComponent.h"
 
 
 
 namespace nu {
 
-    FACTORY_REGISTER(Actor);
+    FACTORY_REGISTER(Actor)
+
+    Actor::Actor(const Actor& other) : 
+        Object{ other },
+        m_tag{other.m_tag},
+        m_transform{other.m_transform},
+        m_damping{other.m_damping},
+        m_lifespan{other.m_lifespan}
+    {
+        for (const auto& componet : other.m_components) {
+            auto clone = std::unique_ptr<Component>(dynamic_cast<Component*>(componet->Clone().release()));
+            AddComponent(std::move(clone));
+        }
+        //copy stuff
+    }
 
     void Actor::Update(float dt) {
 
@@ -21,6 +36,10 @@ namespace nu {
             m_destroyed = (m_lifespan <= 0.0f);
         }
 
+        for (auto& component : m_components) {
+            component->Update(dt);
+        }
+
         //physics
         m_transform.position += (m_velocity * dt);
         m_velocity *= 1.0f / ((1.0f) + m_damping * dt);
@@ -30,24 +49,23 @@ namespace nu {
 
     void Actor::Draw(const Renderer& renderer) const {
 
-        if (m_model) {
-            renderer.DrawModel(*m_model, m_transform);
+        for (auto& component : m_components) {
+            auto rendererComponent = dynamic_cast<RendererComponent*>(component.get());
+            if (rendererComponent) {
+                rendererComponent->Draw(renderer);
+            }
         }
-        if (m_texture) {
-            renderer.DrawTexture(*m_texture, m_transform.position.x, m_transform.position.y, m_transform.rotation, m_transform.scale);
-        }
-        
 
 
     }
     float Actor::GetRadius() const
     {
-        if (m_model) {
+        /*if (m_model) {
             return m_model->GetRadius()* m_transform.scale * 0.9f;
         }
         if (m_texture) {
             return (m_texture->GetSize().Length() * 0.5f) * 0.5;
-        }
+        }*/
         return  0.0f;
     }
 
@@ -59,16 +77,32 @@ namespace nu {
             m_transform.Read(JSON_GET_NAME(value, "transform"));
         }
 
-        std::string textureName;
-        JSON_READ_NAME(value, "texture", textureName);
-        if (!textureName.empty()) {
-            m_texture = Resources().Get<Texture>(textureName, Engine::Get().GetRenderer());
-        }
-
         JSON_READ_NAME(value, "tag", m_tag);
         JSON_READ_NAME(value, "lifespan", m_lifespan);
         JSON_READ_NAME(value, "velocity", m_velocity);
         JSON_READ_NAME(value, "dampening", m_damping);
 
+
+
+        if (JSON_HAS_NAME(value, "components")) {
+            for (auto& componentValue : JSON_GET_NAME(value, "components").GetArray()) {
+                std::string typeName;
+                JSON_READ_NAME(componentValue, "type", typeName);
+
+                std::cout << "Loading component type: " << typeName << std::endl;
+
+                auto component = Factory::Instance().Create<Component>(typeName);
+
+                if (component) {
+                    component->Read(componentValue);
+                    AddComponent(std::move(component));
+                }
+            }
+        }
+    }
+    void Actor::AddComponent(std::unique_ptr<Component> component)
+    {
+        component->SetOwner(this);
+        m_components.push_back(std::move(component));
     }
 }
