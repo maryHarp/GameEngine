@@ -17,6 +17,7 @@
 #include "Json.h"
 #include "StringUtils.h"
 
+#include "Physics/Physics.h"
 
 //systems
 #include "Random.h"
@@ -52,6 +53,7 @@ namespace nu {
 		}
 		Audio& GetAudio() { return m_audio; }
 		ParticleSystem& GetPS() { return m_particleSystem;  }
+		Physics& GetPhysics() { return m_physics; }
 
 	private:
 		Engine() = default;
@@ -62,6 +64,7 @@ namespace nu {
 		Time m_time;
 		Audio m_audio;
 		ParticleSystem m_particleSystem;
+		Physics m_physics;
 
 	};
 
