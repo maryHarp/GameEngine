@@ -13,17 +13,32 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Audio">
-      <UniqueIdentifier>{4a775d40-6d90-49a1-9618-186ff4e065ac}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Renderer">
-      <UniqueIdentifier>{3b8ca5ce-66ca-42c9-bbc2-08a6f572d364}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Components">
       <UniqueIdentifier>{43951381-d6a3-408c-9a18-f03fe162c49c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Physics">
       <UniqueIdentifier>{f9d1286d-9362-4cc7-a229-f47d66c2f64c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Audio">
+      <UniqueIdentifier>{579ea858-f781-4260-baf2-edc16aa13809}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{3dd687d8-a18c-46f9-b1e6-11e430d96db3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework">
+      <UniqueIdentifier>{5b0d2eb7-7c73-4c2d-9977-733cbda09e13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{2e3a98ed-f4e8-4d4f-bbf5-84138a082c2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{2e5f528e-5ed1-4876-95a4-f2e59fe7ae26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{6e029dce-689b-425b-9d4c-4b2a7391da16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Serialization">
+      <UniqueIdentifier>{f4fa2837-b2f2-4d29-a522-de1730931b34}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -84,24 +99,6 @@
     <ClInclude Include="Singleton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Audio.h">
-      <Filter>Header Files\Audio</Filter>
-    </ClInclude>
-    <ClInclude Include="Font.h">
-      <Filter>Header Files\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleSystem.h">
-      <Filter>Header Files\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Model.h">
-      <Filter>Header Files\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>Header Files\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>Header Files\Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="Json.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -131,6 +128,24 @@
     </ClInclude>
     <ClInclude Include="Physics\Physics.h">
       <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Audio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
