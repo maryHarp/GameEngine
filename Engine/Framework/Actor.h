@@ -1,10 +1,8 @@
 #pragma once
 
-#include "Transform.h"
-#include "Model.h"
-#include <string>
-#include <memory>
-#include "Resource.h"
+#include "Math/Transform.h"
+#include "Renderer/Model.h"
+#include "Resources/Resource.h"
 #include "Object.h"
 #include "Components/Component.h"
 

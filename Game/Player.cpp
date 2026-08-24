@@ -1,13 +1,12 @@
 #include "pch.h"
 #include "Player.h"
-#include "Renderer.h"
+#include "Renderer/Renderer.h"
 #include "Engine.h"
 #include "Bullet.h"
-#include "Model.h"
+#include "Renderer/Model.h"
 #include "Assets.h"
 #include "SpaceGame.h"
-#include "ResourceManager.h"
-#include <memory>
+#include "Resources/ResourceManager.h"
 
 FACTORY_REGISTER(Player)
 

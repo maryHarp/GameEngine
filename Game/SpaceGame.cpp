@@ -3,9 +3,8 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Assets.h"
-#include "ResourceManager.h"
+#include "Resources/ResourceManager.h"
 
-#include <memory>
 
 using namespace nu;
 class Scene;
