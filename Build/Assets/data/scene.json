@@ -15,8 +15,10 @@
       },
       "components": [
         {
-          "type": "SpriteRendererComponent",
-          "texture": "textures/coin.png"
+          "type": "SpriteAnimationRendererComponent",
+          "texture_frames": "animations/coin_idle.json",
+          "frames_per_second": 10,
+          "loop":  true
         }
       ]
     },

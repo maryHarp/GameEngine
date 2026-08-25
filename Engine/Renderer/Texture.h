@@ -1,5 +1,5 @@
 #pragma once
-
+#include <iostream>
 #include "Math/Vector2.h"
 #include "Resources/Resource.h"
 

@@ -41,10 +41,10 @@ namespace nu {
 
 		return true;
 	}
-	Rect TextureFrames::GetFrameRect(int frame)
+	Rect TextureFrames::GetFrameRect(unsigned int frame)
 	{
 
-		if (frame < 0 || frame >= m_totalFrames) {
+		if (frame >= m_totalFrames) {
 
 			std::cerr << "Texture Frame frame is out of bounds.\n";
 			frame = 0;

@@ -1,5 +1,5 @@
 {
-  "texture_name": "texture/coin_png",
+  "texture_name": "textures/coin.png",
   "columns": 8,
   "rows": 1,
   "start_frame": 0,

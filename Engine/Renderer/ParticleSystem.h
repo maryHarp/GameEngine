@@ -5,7 +5,8 @@
 #include "Math/Transform.h"
 #include "Resources/Resource.h"
 
-
+#include <vector>
+#include <memory>
 
 
 namespace nu {
@@ -19,6 +20,7 @@ namespace nu {
 		Vector2 position{ 0, 0 };
 		Vector2 velocity{ 0, 0 };
 		Color color{ 0, 0, 0 };
+		//res_t<Texture> 
 	};
 
 	class ParticleSystem

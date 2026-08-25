@@ -4,6 +4,8 @@
 #include "StringUtils.h"
 #include "Framework/Object.h"
 #include <map>
+#include <system_error>
+#include <iostream>
 
 #define FACTORY_REGISTER(classname)                                  \
     class Register##classname                                        \

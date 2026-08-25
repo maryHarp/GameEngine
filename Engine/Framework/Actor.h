@@ -5,6 +5,8 @@
 #include "Resources/Resource.h"
 #include "Object.h"
 #include "Components/Component.h"
+#include <string>
+#include <memory>
 
 namespace nu {
 
