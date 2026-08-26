@@ -66,11 +66,15 @@ namespace nu {
 		UpdateCollisions();
 
 		//remove destoryed actors
+		for (auto& actor : m_pendingActors) {
+			if (actor->m_destroyed) actor->OnDestroy();
+		}
 		std::erase_if(m_actors, [](auto& actor) {return actor->m_destroyed; });
 
 
 		//add pending actors
 		for (auto& actor : m_pendingActors) {
+			actor->Start();
 			m_actors.push_back(std::move(actor));
 		}
 		m_pendingActors.clear();

@@ -29,16 +29,22 @@
         "tag": "Player",
         "active": true,
         "speed": 2000.0,
-        "damping": 3,
         "transform": {
           "position": [ 640, 512 ],
-          "rotation": 0,
+          "rotation": -90,
           "scale": 1
         },
         "components": [
           {
             "type": "SpriteRendererComponent",
             "texture": "textures/player.png"
+          },
+          {
+            "type": "Box2DPhysicsComponent",
+            "linear_damping": 2.0,
+            "angular_damping": 2.0,
+            "size": [ 48, 48 ],
+            "gravity_scale":  0
           },
           {
             "type": "CircleColliderComponent",
@@ -52,8 +58,7 @@
         "name": "EnemyPrototype",
         "tag": "Enemy",
         "active": true,
-        "speed": 1500.0,
-        "damping": 3,
+        "speed": 1000.0,
         "transform": {
           "position": [ 640, 512 ],
           "rotation": 0,
@@ -63,6 +68,13 @@
           {
             "type": "SpriteRendererComponent",
             "texture": "textures/enemy.png"
+          },
+          {
+            "type": "Box2DPhysicsComponent",
+            "linear_damping": 2.0,
+            "angular_damping": 2.0,
+            "size": [ 48, 48 ],
+            "gravity_scale": 0
           },
           {
             "type": "CircleColliderComponent",
@@ -78,7 +90,6 @@
         "active": true,
         "lifespan": 1.0,
         "speed": 1000.0,
-        "damping": 3,
         "transform": {
           "position": [ 640, 512 ],
           "rotation": 0,
@@ -88,6 +99,13 @@
           {
             "type": "SpriteRendererComponent",
             "texture": "textures/bullet.png"
+          },
+          {
+            "type": "Box2DPhysicsComponent",
+            "linear_damping": 2.0,
+            "angular_damping": 2.0,
+            "size": [ 48, 48 ],
+            "gravity_scale": 0
           },
           {
             "type": "CircleColliderComponent",

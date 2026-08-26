@@ -10,7 +10,7 @@ namespace nu {
 		virtual ~Component() = default;
 
 		virtual void Start() {}
-		virtual void Destory() {}
+		virtual void OnDestroy() {}
 
 		virtual void Update(float dt) {}
 
