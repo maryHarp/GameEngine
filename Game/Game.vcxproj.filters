@@ -19,6 +19,9 @@
     <Filter Include="Assets\Animations">
       <UniqueIdentifier>{0bdf462b-1922-4bfa-894c-fb50ba5ca9d2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\Tilemaps">
+      <UniqueIdentifier>{776d3f60-10f3-4860-8755-5c70f5ab9ecf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -63,6 +66,9 @@
     </None>
     <None Include="..\Build\Assets\animations\coin_idle.json">
       <Filter>Assets\Animations</Filter>
+    </None>
+    <None Include="..\Build\Assets\tilemaps\world.json">
+      <Filter>Assets\Tilemaps</Filter>
     </None>
   </ItemGroup>
 </Project>

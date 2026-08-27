@@ -12,17 +12,17 @@ namespace nu {
 		m_pendingActors.push_back(std::move(actor)); 
 	}
 
-	void Scene::RemoveAllActors()
+	void Scene::RemoveAllActors(bool force)
 	{
 		
-		m_actors.clear();
+		std::erase_if(m_actors, [force](auto& actor) {return !actor->GetPersistent() || force; });
 
 	}
 
 	bool Scene::Load(const std::string& sceneName)
 	{
 		json::document_t document;
-	if (json::Load("data/scene.json", document)) {
+	if (json::Load(sceneName, document)) {
 
 		if (JSON_HAS_NAME(document, "actors")) {
 			for (auto& actorValue : JSON_GET_NAME(document, "actors").GetArray()) {
@@ -63,7 +63,7 @@ namespace nu {
 			actor->Update(dt);
 		}
 
-		UpdateCollisions();
+		//UpdateCollisions();
 
 		//remove destoryed actors
 		for (auto& actor : m_pendingActors) {
@@ -78,9 +78,6 @@ namespace nu {
 			m_actors.push_back(std::move(actor));
 		}
 		m_pendingActors.clear();
-
-		//m_actors.insert(m_actors.end(), m_pendingActors.begin(), m_pendingActors.end());
-		//m_pendingActors.clear();
 	}
 
 	void Scene::Draw(const class Renderer& renderer) {

@@ -178,6 +178,7 @@
   <ItemGroup>
     <None Include="..\Build\Assets\animations\coin_idle.json" />
     <None Include="..\Build\Assets\data\scene.json" />
+    <None Include="..\Build\Assets\tilemaps\world.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

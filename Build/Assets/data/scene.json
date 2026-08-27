@@ -3,9 +3,29 @@
     {
       "type": "Actor",
       "prototype": false,
+      "name": "Tilemap",
+      "tag": "Ground",
+      "active": true,
+      "persistent": true,
+      "transform": {
+        "position": [ 0, 0 ],
+        "rotation": 0,
+        "scale": 3
+      },
+      "components": [
+        {
+          "type": "TilemapRendererComponent",
+          "tilemap_name": "tilemap/world.json"
+        }
+      ]
+    },
+    {
+      "type": "Actor",
+      "prototype": false,
       "name": "Coin",
       "tag": "Enemy",
       "active": true,
+      "persistent": true,
       "speed": 2000.0,
       "damping": 3,
       "transform": {
@@ -18,100 +38,89 @@
           "type": "SpriteAnimationRendererComponent",
           "texture_frames": "animations/coin_idle.json",
           "frames_per_second": 10,
-          "loop":  true
+          "loop": true
         }
       ]
     },
-      {
-        "type": "Player",
-        "prototype": true,
-        "name": "PlayerPrototype",
-        "tag": "Player",
-        "active": true,
-        "speed": 2000.0,
-        "transform": {
-          "position": [ 640, 512 ],
-          "rotation": -90,
-          "scale": 1
-        },
-        "components": [
-          {
-            "type": "SpriteRendererComponent",
-            "texture": "textures/player.png"
-          },
-          {
-            "type": "Box2DPhysicsComponent",
-            "linear_damping": 2.0,
-            "angular_damping": 2.0,
-            "size": [ 48, 48 ],
-            "gravity_scale":  0
-          },
-          {
-            "type": "CircleColliderComponent",
-            "radius": 64
-          }
-        ]
+    {
+      "type": "Player",
+      "prototype": true,
+      "name": "PlayerPrototype",
+      "tag": "Player",
+      "active": true,
+      "speed": 2000.0,
+      "transform": {
+        "position": [ 640, 512 ],
+        "rotation": -90,
+        "scale": 1
       },
-      {
-        "type": "Enemy",
-        "prototype": true,
-        "name": "EnemyPrototype",
-        "tag": "Enemy",
-        "active": true,
-        "speed": 1000.0,
-        "transform": {
-          "position": [ 640, 512 ],
-          "rotation": 0,
-          "scale": 1
+      "components": [
+        {
+          "type": "SpriteRendererComponent",
+          "texture": "textures/player.png"
         },
-        "components": [
-          {
-            "type": "SpriteRendererComponent",
-            "texture": "textures/enemy.png"
-          },
-          {
-            "type": "Box2DPhysicsComponent",
-            "linear_damping": 2.0,
-            "angular_damping": 2.0,
-            "size": [ 48, 48 ],
-            "gravity_scale": 0
-          },
-          {
-            "type": "CircleColliderComponent",
-            "radius": 24
-          }
-        ]
+        {
+          "type": "Box2DPhysicsComponent",
+          "linear_damping": 2.0,
+          "angular_damping": 2.0,
+          "size": [ 48, 48 ],
+          "gravity_scale": 0
+        }
+      ]
+    },
+    {
+      "type": "Enemy",
+      "prototype": true,
+      "name": "EnemyPrototype",
+      "tag": "Enemy",
+      "active": true,
+      "speed": 1000.0,
+      "transform": {
+        "position": [ 640, 512 ],
+        "rotation": 0,
+        "scale": 1
       },
-      {
-        "type": "Bullet",
-        "prototype": true,
-        "name": "BulletPrototype",
-        "tag": "Bullet",
-        "active": true,
-        "lifespan": 1.0,
-        "speed": 1000.0,
-        "transform": {
-          "position": [ 640, 512 ],
-          "rotation": 0,
-          "scale": 1
+      "components": [
+        {
+          "type": "SpriteRendererComponent",
+          "texture": "textures/enemy.png"
         },
-        "components": [
-          {
-            "type": "SpriteRendererComponent",
-            "texture": "textures/bullet.png"
-          },
-          {
-            "type": "Box2DPhysicsComponent",
-            "linear_damping": 2.0,
-            "angular_damping": 2.0,
-            "size": [ 48, 48 ],
-            "gravity_scale": 0
-          },
-          {
-            "type": "CircleColliderComponent",
-            "radius": 24
-          }
-        ]
-      }
+        {
+          "type": "Box2DPhysicsComponent",
+          "linear_damping": 2.0,
+          "angular_damping": 2.0,
+          "size": [ 48, 48 ],
+          "gravity_scale": 0
+        }
+      ]
+    },
+    {
+      "type": "Bullet",
+      "prototype": true,
+      "name": "BulletPrototype",
+      "tag": "Bullet",
+      "active": true,
+      "lifespan": 1.0,
+      "speed": 1000.0,
+      "transform": {
+        "position": [ 640, 512 ],
+        "rotation": 0,
+        "scale": 1
+      },
+      "components": [
+        {
+          "type": "SpriteRendererComponent",
+          "texture": "textures/bullet.png"
+        },
+        {
+          "type": "Box2DPhysicsComponent",
+          "linear_damping": 2.0,
+          "angular_damping": 2.0,
+          "size": [ 48, 48 ],
+          "gravity_scale": 0,
+          "is_sensor": true
+        }
+      ]
+    }
   ]
 }
