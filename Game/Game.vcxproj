@@ -178,9 +178,9 @@
     <ClInclude Include="SpriteGame\SpriteGame.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Build\Assets\animations\coin_idle.json" />
-    <None Include="..\Build\Assets\data\scene.json" />
-    <None Include="..\Build\Assets\tilemaps\world.json" />
+    <None Include="..\Build\Assets\SpriteGame\animations\coin_idle.json" />
+    <None Include="..\Build\Assets\SpriteGame\data\scene.json" />
+    <None Include="..\Build\Assets\SpriteGame\tilemaps\world.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

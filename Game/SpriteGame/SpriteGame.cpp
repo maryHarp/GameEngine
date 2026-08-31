@@ -16,7 +16,7 @@ bool SpriteGame::Initialize() {
 
 	m_scene = std::make_unique<nu::Scene>();
 	m_scene->SetGame(this);
-	m_scene->Load("data/scene.json");
+	m_scene->Load("scenes/scene.json");
 
 
 	m_titleText = new Text(Resources().Get<Font>("fonts/font.ttf", 50.0f));
