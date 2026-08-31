@@ -3,6 +3,9 @@
 #include "Scene.h"
 
 namespace nu {
+	//Game::Game() = default;
+	//Game::~Game() = default;
+
 	void Game::Update(float dt) {
 		m_scene->Update(dt);
 	}
@@ -10,4 +13,5 @@ namespace nu {
 	void Game::Draw(Renderer& renderer) {
 		m_scene->Draw(renderer);
 	}
+	
 }

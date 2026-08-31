@@ -3,7 +3,7 @@
 #include "Renderer/Text.h"
 #include "Resources/Resource.h"
 
-class SpaceGame : public nu::Game
+class SpriteGame : public nu::Game
 {
 public:
 	enum GameState {
@@ -17,9 +17,8 @@ public:
 		
 
 public:
-	SpaceGame() = default;
-	SpaceGame(nu::Scene* scene) :
-		nu:: Game(scene)
+	SpriteGame() = default;
+	SpriteGame(nu::Scene* scene) : nu::Game(scene)
 	{ }
 
 	bool Initialize() override;

@@ -1,11 +1,12 @@
 
 #include "Engine.h"
-#include "Player.h"
-#include "Enemy.h"
+#include "SpaceGame/Player.h"
+#include "SpaceGame/Enemy.h"
 #include "Assets.h"
-#include "SpaceGame.h"
+#include "SpaceGame/SpaceGame.h"
 #include "Renderer/Texture.h"
-#include "Bullet.h"
+#include "SpaceGame/Bullet.h"
+#include "SpriteGame/SpriteGame.h"
 
 
 #include <iostream>
@@ -28,8 +29,10 @@ int main()
 
     Engine::Get().Initialize();
 
-    SpaceGame game;
-    game.Initialize();
+    //SpaceGame game;
+    std::unique_ptr<SpriteGame> game = std::make_unique<SpriteGame>(); 
+
+    game->Initialize();
 
     //create audio system
     FMOD::System* audio;
@@ -76,18 +79,20 @@ int main()
    
         float dt = Engine::Get().GetTime().GetDeltaTime();
 
-        game.Update(dt);
+        game->Update(dt);
 
         //render
         Engine::Get().GetRenderer().setColor(0.0f, 0.0f, 0.0f);
         Engine::Get().GetRenderer().Clear();
         
-        game.Draw(Engine::Get().GetRenderer());
+        game->Draw(Engine::Get().GetRenderer());
 
         Engine::Get().GetPS().Draw(Engine::Get().GetRenderer());
 
         Engine::Get().GetRenderer().Present();
     }
+
+    game.reset();
 
     //shutdown 
     Engine::Get().Shutdown();

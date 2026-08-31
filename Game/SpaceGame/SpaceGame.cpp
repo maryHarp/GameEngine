@@ -2,7 +2,6 @@
 #include "Engine.h"
 #include "Player.h"
 #include "Enemy.h"
-#include "Assets.h"
 #include "Resources/ResourceManager.h"
 
 
@@ -10,9 +9,11 @@ using namespace nu;
 class Scene;
 
 bool SpaceGame::Initialize() {
+	SetWorkingDirectory("SpaceGame");
+
 	Game::Initialize();
 
-	m_scene = new nu::Scene();
+	m_scene = std::make_unique<nu::Scene>();
 	m_scene->SetGame(this);
 	m_scene->Load("data/scene.json");
 

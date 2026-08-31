@@ -4,7 +4,7 @@
 #include "Engine.h"
 #include "Bullet.h"
 #include "Renderer/Model.h"
-#include "Assets.h"
+
 #include "Resources/ResourceManager.h"
 #include "Components/PhysicsComponent.h"
 
