@@ -2,27 +2,8 @@
   "actors": [
     {
       "type": "Actor",
-      "prototype": false,
-      "name": "Tilemap",
-      "tag": "Ground",
-      "active": true,
-      "persistent": true,
-      "transform": {
-        "position": [ 0, 0 ],
-        "rotation": 0,
-        "scale": 3
-      },
-      "components": [
-        {
-          "type": "TilemapRendererComponent",
-          "tilemap_name": "tilemaps/world.json"
-        }
-      ]
-    },
-    {
-      "type": "Actor",
-      "prototype": false,
-      "name": "Coin",
+      "prototype": true,
+      "name": "CoinPrototype",
       "tag": "Enemy",
       "active": true,
       "persistent": true,
@@ -35,36 +16,36 @@
       },
       "components": [
         {
-          "type": "SpriteAnimatiorRendererComponent",
-          "default_antimation": "run",
+          "type": "SpriteAnimatorRendererComponent",
+          "default_animation": "run",
           "animations": [
             {
               "name": "run",
-              "texture_frames": "animations/coin_idle.json",
+              "texture_frames": "animations/enemy_walk.json",
               "frames_per_second": 10,
               "loop": true
 
             },
             {
               "name": "idle",
-              "texture_frames": "animations/coin_idle.json",
+              "texture_frames": "animations/enemy_idle.json",
               "frames_per_second": 10,
               "loop": true
 
-            },
-            {
-              "type": "Box2DPhysicsComponent",
-              "linear_damping": 2.0,
-              "angular_damping": 2.0,
-              "size": [ 48, 48 ],
-              "gravity_scale": 0
             }
           ]
+        },
+        {
+          "type": "Box2DPhysicsComponent",
+          "linear_damping": 2.0,
+          "angular_damping": 2.0,
+          "size": [ 48, 48 ],
+          "gravity_scale": 0
         }
       ]
     },
     {
-      "type": "Player",
+      "type": "PlayerController",
       "prototype": true,
       "name": "PlayerPrototype",
       "tag": "Player",
@@ -72,74 +53,130 @@
       "speed": 2000.0,
       "transform": {
         "position": [ 640, 512 ],
-        "rotation": -90,
-        "scale": 1
+        "rotation": 0,
+        "scale": 3
       },
       "components": [
         {
-          "type": "SpriteRendererComponent",
-          "texture": "textures/player.png"
+          "type": "SpriteAnimatorRendererComponent",
+          "default_animation": "run",
+          "animations": [
+            {
+              "name": "run",
+              "texture_frames": "animations/player_walk.json",
+              "frames_per_second": 10,
+              "loop": true
+
+            },
+            {
+              "name": "idle",
+              "texture_frames": "animations/player_idle.json",
+              "frames_per_second": 10,
+              "loop": true
+
+            }
+          ]
         },
         {
           "type": "Box2DPhysicsComponent",
           "linear_damping": 2.0,
           "angular_damping": 2.0,
-          "size": [ 48, 48 ],
-          "gravity_scale": 0
+          "shape": "capsule",
+          "size": [ 36, 38 ],
+          "constrain_angle": true,
+          "gravity_scale": 1
+
         }
       ]
     },
     {
-      "type": "Enemy",
+      "type": "EnemyController",
       "prototype": true,
       "name": "EnemyPrototype",
       "tag": "Enemy",
       "active": true,
-      "speed": 1000.0,
+      "speed": 2000.0,
       "transform": {
         "position": [ 640, 512 ],
         "rotation": 0,
-        "scale": 1
+        "scale": 3
       },
       "components": [
         {
-          "type": "SpriteRendererComponent",
-          "texture": "textures/enemy.png"
+          "type": "SpriteAnimatorRendererComponent",
+          "default_animation": "run",
+          "animations": [
+            {
+              "name": "run",
+              "texture_frames": "animations/enemy_idle.json",
+              "frames_per_second": 10,
+              "loop": true
+
+            },
+            {
+              "name": "idle",
+              "texture_frames": "animations/enemy_idle.json",
+              "frames_per_second": 10,
+              "loop": true
+
+            }
+          ]
         },
         {
           "type": "Box2DPhysicsComponent",
           "linear_damping": 2.0,
           "angular_damping": 2.0,
-          "size": [ 48, 48 ],
-          "gravity_scale": 0
+          "shape": "capsule",
+          "size": [ 36, 38 ],
+          "constrain_angle": true,
+          "gravity_scale": 1
+
         }
       ]
     },
     {
-      "type": "Bullet",
+      "type": "FlyingEnemyController",
       "prototype": true,
-      "name": "BulletPrototype",
-      "tag": "Bullet",
+      "name": "FlyingEnemyPrototype",
+      "tag": "Enemy",
       "active": true,
-      "lifespan": 1.0,
-      "speed": 1000.0,
+      "speed": 2000.0,
       "transform": {
         "position": [ 640, 512 ],
         "rotation": 0,
-        "scale": 1
+        "scale": 3
       },
       "components": [
         {
-          "type": "SpriteRendererComponent",
-          "texture": "textures/bullet.png"
+          "type": "SpriteAnimatorRendererComponent",
+          "default_animation": "run",
+          "animations": [
+            {
+              "name": "run",
+              "texture_frames": "animations/enemy_walk.json",
+              "frames_per_second": 10,
+              "loop": true
+
+            },
+            {
+              "name": "idle",
+              "texture_frames": "animations/enemy_idle.json",
+              "frames_per_second": 10,
+              "loop": true
+
+            }
+          ]
         },
         {
           "type": "Box2DPhysicsComponent",
           "linear_damping": 2.0,
           "angular_damping": 2.0,
-          "size": [ 48, 48 ],
-          "gravity_scale": 0,
-          "is_sensor": true
+          "shape": "capsule",
+          "size": [ 36, 38 ],
+          "constrain_angle": true,
+          "gravity_scale": 1,
+          "is_sensor":  true
+
         }
       ]
     }

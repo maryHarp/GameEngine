@@ -53,7 +53,11 @@ void SpriteGame::Update(float dt){
 		m_gameState = SpriteGame::StartLevel;
 		break;
 	case SpriteGame::StartLevel:
+
 		m_scene->RemoveAllActors();
+
+		m_scene->Load("scenes/level.json");
+
 		SpawnPlayer();
 		m_enemiesLeft = m_enemiesToSpawn;
 		SpawnEnemy(m_enemiesToSpawn);
@@ -113,6 +117,8 @@ void SpriteGame::Update(float dt){
 }
 
 void SpriteGame::Draw(nu::Renderer& renderer) {
+
+	renderer.EnableCamera(false);
 	renderer.DrawTexture(*nu::Resources().Get<Texture>("textures/background.png", Engine::Get().GetRenderer()), 500, 500, 0, 5.0f);
 	switch (m_gameState)
 	{
@@ -145,6 +151,7 @@ void SpriteGame::Draw(nu::Renderer& renderer) {
 
 	}
 
+	renderer.EnableCamera(true);
 	Game::Draw(renderer);
 }
 
@@ -164,10 +171,10 @@ void SpriteGame::OnPlayerDead()
 }
 
 void SpriteGame::SpawnPlayer() {
-	//auto actor = Factory::Instance().Create<Player>("PlayerPrototype");
+	auto actor = Factory::Instance().Create<Actor>("PlayerPrototype");
 
 
-	//m_scene->AddActor(std::move(actor));
+	m_scene->AddActor(std::move(actor));
 	
 
 
@@ -175,26 +182,21 @@ void SpriteGame::SpawnPlayer() {
 
 void SpriteGame::SpawnEnemy(int count)
 {
-	for (int i = 0; i < count; i++) {
+	int enemyIndex = nu::RandomInt(2);
+	if (enemyIndex == 0) {
+		auto actor = Factory::Instance().Create<Actor>("EnemyPrototype");
+		actor->SetPosition({nu::RandomFloat(1024.0f), nu::RandomFloat(800.0f) });
 
-		//auto actor = Factory::Instance().Create<Enemy>("EnemyPrototype");
-
-
-		//m_scene->AddActor(std::move(actor));
-
-		//EnemyDesc enemyDesc;
-		//enemyDesc.name = "Enemy";
-		//enemyDesc.tag = "Enemy";
-		////enemyDesc.model = assets::enemyModel;
-		//enemyDesc.texture = Resources().Get<Texture>("textures/enemy.png", Engine::Get().GetRenderer());
-		//enemyDesc.transform = Transform{ Vector2 {nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetWidth()),
-		//													   nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetHeight())}, 0.0f, 1.0f };
-		//enemyDesc.speed = 500.0f;
-		//enemyDesc.damping = 3.0f;
-
-
-		//m_scene->AddActor(std::move(std::make_unique<Enemy>(enemyDesc)));
+		m_scene->AddActor(std::move(actor));
 	}
+	else if (enemyIndex == 1){
+		auto actor = Factory::Instance().Create<Actor>("EnemyPrototype");
+		actor->SetPosition({ nu::RandomFloat(1024.0f), nu::RandomFloat(800.0f) });
+
+		m_scene->AddActor(std::move(actor));
+
+	}
+	
 
 
 

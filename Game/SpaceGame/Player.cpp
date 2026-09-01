@@ -41,9 +41,11 @@ void Player::Update(float dt) {
         physicsComponent->ApplyTorque(rotate);
 
         nu::Vector2 position = physicsComponent->GetPosition();
-        position.x = nu::Wrap(0.0f, 1280.0f, position.x);
+        /*position.x = nu::Wrap(0.0f, 1280.0f, position.x);
         position.y = nu::Wrap(0.0f, 1024.0f, position.y);
-        physicsComponent->SetPosition(position);
+        physicsComponent->SetPosition(position);*/
+
+        nu::Engine::Get().GetRenderer().SetCamera(position);
 
     }
 
