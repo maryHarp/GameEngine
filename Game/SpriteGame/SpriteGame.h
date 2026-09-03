@@ -35,21 +35,24 @@ public:
 	int GetEnemies() const { return m_enemiesLeft; }
 	void SetEnemies(int enemies) { m_enemiesLeft = enemies;  }
 
+	int GetPlayerHealth() const { return m_playerHealth; }
+	void SetPlayerHealth(int health) { m_playerHealth = health;  }
+
 
 
 
 private:
 	void SpawnPlayer();
-	void SpawnEnemy(int count);
+	void SpawnEnemy();
 
 
 	int m_score{ 0 };
-	int m_lives{ 0 };
+	int m_playerHealth{ 0 };
 	int m_enemiesToSpawn = 5;
 	int m_enemiesLeft = 0;
-	int m_maxEnemies = 0;
-	int m_round = 1;
-	int m_maxRounds = 5;
+	//int m_maxEnemies = 0;
+	int m_coinsToSpawn = 10;
+	int m_coinsLeft = 0;
 
 	float m_stateTimer = 0.0f;
 

@@ -162,6 +162,8 @@
     <ClCompile Include="SpaceGame\Enemy.cpp" />
     <ClCompile Include="SpaceGame\Player.cpp" />
     <ClCompile Include="SpaceGame\SpaceGame.cpp" />
+    <ClCompile Include="SpriteGame\CharacterBase.cpp" />
+    <ClCompile Include="SpriteGame\Damager.cpp" />
     <ClCompile Include="SpriteGame\EnemyController.cpp" />
     <ClCompile Include="SpriteGame\FlyingEnemyController.cpp" />
     <ClCompile Include="SpriteGame\PlayerController.cpp" />
@@ -178,6 +180,8 @@
     <ClInclude Include="SpaceGame\Enemy.h" />
     <ClInclude Include="SpaceGame\Player.h" />
     <ClInclude Include="SpaceGame\SpaceGame.h" />
+    <ClInclude Include="SpriteGame\CharacterBase.h" />
+    <ClInclude Include="SpriteGame\Damager.h" />
     <ClInclude Include="SpriteGame\EnemyController.h" />
     <ClInclude Include="SpriteGame\FlyingEnemyController.h" />
     <ClInclude Include="SpriteGame\PlayerController.h" />
@@ -185,10 +189,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Build\Assets\SpriteGame\animations\coin_idle.json" />
-    <None Include="..\Build\Assets\SpriteGame\animations\enemy_idle.json" />
-    <None Include="..\Build\Assets\SpriteGame\animations\enemy_walk.json" />
-    <None Include="..\Build\Assets\SpriteGame\animations\player_idle.json" />
-    <None Include="..\Build\Assets\SpriteGame\animations\player_walk.json" />
+    <None Include="..\Build\Assets\SpriteGame\animations\enemy_attack.json" />
     <None Include="..\Build\Assets\SpriteGame\scenes\level.json" />
     <None Include="..\Build\Assets\SpriteGame\scenes\scene.json" />
     <None Include="..\Build\Assets\SpriteGame\tilemaps\world.json" />

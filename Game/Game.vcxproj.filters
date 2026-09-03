@@ -71,6 +71,12 @@
     <ClCompile Include="SpriteGame\FlyingEnemyController.cpp">
       <Filter>SpriteGame</Filter>
     </ClCompile>
+    <ClCompile Include="SpriteGame\CharacterBase.cpp">
+      <Filter>SpriteGame</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteGame\Damager.cpp">
+      <Filter>SpriteGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SpaceGame\Bullet.h">
@@ -100,6 +106,12 @@
     <ClInclude Include="SpriteGame\FlyingEnemyController.h">
       <Filter>SpriteGame</Filter>
     </ClInclude>
+    <ClInclude Include="SpriteGame\CharacterBase.h">
+      <Filter>SpriteGame</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteGame\Damager.h">
+      <Filter>SpriteGame</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Build\Assets\SpriteGame\animations\coin_idle.json">
@@ -114,16 +126,7 @@
     <None Include="..\Build\Assets\SpriteGame\scenes\level.json">
       <Filter>Assets\SpriteGame\Scenes</Filter>
     </None>
-    <None Include="..\Build\Assets\SpriteGame\animations\player_idle.json">
-      <Filter>Assets\SpriteGame\Animations</Filter>
-    </None>
-    <None Include="..\Build\Assets\SpriteGame\animations\player_walk.json">
-      <Filter>Assets\SpriteGame\Animations</Filter>
-    </None>
-    <None Include="..\Build\Assets\SpriteGame\animations\enemy_idle.json">
-      <Filter>Assets\SpriteGame\Animations</Filter>
-    </None>
-    <None Include="..\Build\Assets\SpriteGame\animations\enemy_walk.json">
+    <None Include="..\Build\Assets\SpriteGame\animations\enemy_attack.json">
       <Filter>Assets\SpriteGame\Animations</Filter>
     </None>
   </ItemGroup>

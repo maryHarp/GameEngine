@@ -20,7 +20,7 @@ bool SpriteGame::Initialize() {
 
 
 	m_titleText = new Text(Resources().Get<Font>("fonts/font.ttf", 50.0f));
-	m_titleText->Create(Engine::Get().GetRenderer(), "AstroBlast", Color{ 1, 1, 1 });
+	m_titleText->Create(Engine::Get().GetRenderer(), "SpriteGame", Color{ 1, 1, 1 });
 
 	m_gameText = new Text(Resources().Get<Font>("fonts/font.ttf", 10.0f));
 
@@ -44,10 +44,9 @@ void SpriteGame::Update(float dt){
 		break;
 	case SpriteGame::StartGame:
 		m_score = 0;
-		m_lives = 3;
+		m_playerHealth = 10;
 		m_enemiesToSpawn = 5;
 		m_enemiesLeft = 5;
-		m_round = 1;
 		m_spawnTimer = 5.0f;
 		m_stateTimer = 0.5f;
 		m_gameState = SpriteGame::StartLevel;
@@ -59,8 +58,7 @@ void SpriteGame::Update(float dt){
 		m_scene->Load("scenes/level.json");
 
 		SpawnPlayer();
-		m_enemiesLeft = m_enemiesToSpawn;
-		SpawnEnemy(m_enemiesToSpawn);
+		SpawnEnemy();
 
 		
 		m_gameState = SpriteGame::Game;
@@ -69,21 +67,15 @@ void SpriteGame::Update(float dt){
 	case SpriteGame::Game:
 		//draw score / lives
 		
-			if (m_enemiesLeft == 0) {
-				if (m_round < m_maxRounds) {
-					m_round++;
-					m_enemiesToSpawn += 2;
-					m_enemiesLeft = m_enemiesToSpawn;
-					m_gameState = SpriteGame::StartLevel;
-				}
+		if (m_enemiesLeft == 0) {
+			
+			m_gameState = SpriteGame::Win;
+			
 
 
-				else {
-					m_gameState = SpriteGame::Win;
-				}
+		}
 
 
-			}
 
 
 
@@ -119,7 +111,7 @@ void SpriteGame::Update(float dt){
 void SpriteGame::Draw(nu::Renderer& renderer) {
 
 	renderer.EnableCamera(false);
-	renderer.DrawTexture(*nu::Resources().Get<Texture>("textures/background.png", Engine::Get().GetRenderer()), 500, 500, 0, 5.0f);
+	renderer.DrawTexture(*nu::Resources().Get<Texture>("textures/bg03.png", Engine::Get().GetRenderer()), 500, 500, 0, 1.0f);
 	switch (m_gameState)
 	{
 	case SpriteGame::Title:
@@ -132,14 +124,13 @@ void SpriteGame::Draw(nu::Renderer& renderer) {
 		break;
 	case SpriteGame::Game:
 		m_gameText->Create(renderer, "Score: " + std::to_string(m_score), { 1.0f, 1.0f, 1.0f });
-		m_gameText->Draw(renderer, 30, 30);
-		m_gameText->Create(renderer, "Lives: " + std::to_string(m_lives), { 1.0f, 1.0f, 1.0f });
-		m_gameText->Draw(renderer, 30, 60);
-		m_gameText->Create(renderer, "Round: " + std::to_string(m_round) + " / " + std::to_string(m_maxRounds), {1.0f, 1.0f, 1.0f});
-		m_gameText->Draw(renderer, 30, 90);
+		m_gameText->Draw(renderer, 350, 30);
+		m_gameText->Create(renderer, "Health: " + std::to_string(m_playerHealth), { 1.0f, 1.0f, 1.0f });
+		m_gameText->Draw(renderer, 650, 30);
+		
 		break;
 	case SpriteGame::GameOver:
-		m_gameOverText->Create(renderer, "GAME OVER", { 1.0f, 0.0f, 0.0f });
+		m_gameOverText->Create(renderer, "YOU DIED", { 1.0f, 0.0f, 0.0f });
 		m_gameOverText->Draw(renderer, 450, 450);
 		break;
 	case SpriteGame::Win:
@@ -157,16 +148,10 @@ void SpriteGame::Draw(nu::Renderer& renderer) {
 
 void SpriteGame::OnPlayerDead()
 
-
 {
 
-	m_lives--;
-	if (m_lives == 0) {
 		m_gameState = SpriteGame::GameOver;
-	}
-	else {
-		m_gameState = SpriteGame::StartLevel;
-	}
+	
 
 }
 
@@ -180,22 +165,18 @@ void SpriteGame::SpawnPlayer() {
 
 }
 
-void SpriteGame::SpawnEnemy(int count)
+void SpriteGame::SpawnEnemy()
 {
-	int enemyIndex = nu::RandomInt(2);
-	if (enemyIndex == 0) {
+	for(int i = 0; i < m_enemiesToSpawn; i++)
+	{
 		auto actor = Factory::Instance().Create<Actor>("EnemyPrototype");
-		actor->SetPosition({nu::RandomFloat(1024.0f), nu::RandomFloat(800.0f) });
+	actor->SetPosition({nu::RandomFloat(1024.0f), nu::RandomFloat(800.0f) });
+	
 
-		m_scene->AddActor(std::move(actor));
+	m_scene->AddActor(std::move(actor));
 	}
-	else if (enemyIndex == 1){
-		auto actor = Factory::Instance().Create<Actor>("EnemyPrototype");
-		actor->SetPosition({ nu::RandomFloat(1024.0f), nu::RandomFloat(800.0f) });
-
-		m_scene->AddActor(std::move(actor));
-
-	}
+	
+	
 	
 
 
