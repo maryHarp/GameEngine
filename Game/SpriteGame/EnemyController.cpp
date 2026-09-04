@@ -24,6 +24,10 @@ void EnemyController::Update(float dt)
 
 	nu::Vector2 velocity = m_physicsComponent->GetVelocity();
 
+	if(m_attackTimer > 0.0f) {
+		m_attackTimer -= dt;
+	}
+
 	switch (m_state)
 	{
 	case CharacterBase::State::Move:
@@ -38,13 +42,15 @@ void EnemyController::Update(float dt)
 
 			m_rendererComponent->SetFlipH(direction.x < 0.0f);
 
-			if (direction.Length() < 100.0f) {
+			if (direction.Length() < 100.0f && m_attackTimer <= 0.0f) {
 				m_state = State::Attack;
 				m_rendererComponent->Play("attack");
 
+				m_attackTimer = m_attackCooldown;
+
 				auto damager = nu::Factory::Instance().Create<Damager>("DamagerPrototype");
 				damager->SetDamage(1.0f);
-				damager->SetPosition(GetTransform().position);
+				damager->SetPosition(GetTransform().position + nu::Vector2{ (m_rendererComponent->GetFlipH()) ? -30.f : 30.0f, 0.0f });
 				damager->SetScale(1.0f);
 				damager->SetTag("EnemyDamager");
 				m_scene->AddActor(std::move(damager));

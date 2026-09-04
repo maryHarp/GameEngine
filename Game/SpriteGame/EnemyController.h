@@ -22,5 +22,8 @@ protected:
 	class nu::PhysicsComponent* m_physicsComponent = nullptr;
 	class nu::SpriteAnimatorRendererComponent* m_rendererComponent = nullptr;
 
+private:
+	float m_attackTimer = 0.0f;
+	float m_attackCooldown = 3.0f;
 };
 

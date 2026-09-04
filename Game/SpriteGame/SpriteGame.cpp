@@ -44,9 +44,9 @@ void SpriteGame::Update(float dt){
 		break;
 	case SpriteGame::StartGame:
 		m_score = 0;
-		m_playerHealth = 10;
-		m_enemiesToSpawn = 5;
-		m_enemiesLeft = 5;
+		m_playerHealth = 5;
+		m_enemiesToSpawn = 3;
+		m_enemiesLeft = 3;
 		m_spawnTimer = 5.0f;
 		m_stateTimer = 0.5f;
 		m_gameState = SpriteGame::StartLevel;
