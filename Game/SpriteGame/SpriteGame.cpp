@@ -10,7 +10,7 @@ class Scene;
 
 bool SpriteGame::Initialize() {
 
-	SetWorkingDirectory("SpriteGame"); 
+	SetWorkingDirectory("Defend the Village"); 
 
 	Game::Initialize();
 
