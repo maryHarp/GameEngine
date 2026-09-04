@@ -1,6 +1,4 @@
-Professional, clearly written README includes all required elements (title, description, features, instructions, etc.).
-
-Welcome to SpriteGame!
+Welcome to Defend the Village!
 
 In this game you play as a brave knight tasked with killing the evil warlocks terrorizing your village!
 
